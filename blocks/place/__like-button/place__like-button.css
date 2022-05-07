@@ -9,3 +9,7 @@
     width: 22px;
     height: 19px;
 }
+
+.place__like-button:hover {
+  opacity: .5;
+}

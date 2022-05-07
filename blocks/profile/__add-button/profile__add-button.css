@@ -10,3 +10,7 @@
   background-color: transparent;
   margin-left: auto;
 }
+
+.profile__add-button:hover {
+  opacity: .6;
+}
