@@ -1,0 +1,10 @@
+.profile__desc {
+  margin: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.21;
+  padding-top: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
