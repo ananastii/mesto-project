@@ -1,0 +1,19 @@
+.header_page_mesto {
+  margin-left: calc((100% - 880px)/2);
+  margin-right: calc((100% - 880px)/2);
+}
+
+
+@media screen and (max-width: 940px) {
+  .header_page_mesto  {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 536px) {
+  .header_page_mesto  {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

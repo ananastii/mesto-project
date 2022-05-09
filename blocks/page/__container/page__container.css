@@ -4,8 +4,6 @@
   margin: 0 auto;
   padding-top: 45px;
   padding-bottom: 60px;
-  padding-left: 200px;
-  padding-right: 200px;
   box-sizing: border-box;
   background-color: #000;
   color: #FFFFFF;
@@ -15,4 +13,11 @@
   -moz-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 536px) {
+  .page__container {
+    padding-top: 28px;
+    padding-bottom: 36px;
+  }
 }
