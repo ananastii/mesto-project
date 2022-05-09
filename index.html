@@ -17,58 +17,70 @@
         <div class="profile__info">
           <div class="profile__name-container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button">
-            </button>
+            <button class="profile__edit-button" type="button"></button>
           </div>
           <p class="profile__desc">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
+      </section>
+      <section class="popup popup_opened">
+        <div class="popup__container">
+          <button class="popup__close-button" type="button"></button>
+            <form class="form">
+              <h2 class="form__heading">Редактировать профиль</h2>
+              <fieldset class="form__input-container">
+                <input type="text" class="form__item" id="profile-name" name="profile-name" placeholder="Имя" value="Жак Ив Кусто" required>
+                <input type="text" class="form__item" id="profile-desc" name="profile-desc" placeholder="Описание профиля" value="Исследователь океана">
+              </fieldset>
+              <button type="submit" class="form__button" value="submit"><span class="form__button-text">Сохранить</span></button>
+            </form>
+        </div>
       </section>
       <section class="places">
       <ul class="places__grid">
         <li class="place">
          <img src="images/place-karachaevsk.jpg" alt="" class="place__photo">
          <div class="place__desc">
-            <p class="place__name">Карачаевск</p>
-            <button class="place__like-button">
+            <h2 class="place__name">Карачаевск</h2>
+            <button class="place__like-button" type="button">
             </button>
          </div>
         </li>
         <li class="place">
           <img src="images/place-elbrus.jpg" alt="" class="place__photo">
           <div class="place__desc">
-             <p class="place__name">Гора Эльбрус</p>
-             <button class="place__like-button">
+             <h2 class="place__name">Гора Эльбрус</h2>
+             <button class="place__like-button" type="button">
              </button>
           </div>
         </li>
         <li class="place">
           <img src="images/place-dombaj.jpg" alt="" class="place__photo">
           <div class="place__desc">
-             <p class="place__name">Домбай</p>
-             <button class="place__like-button place__like-button_active">
+             <h2 class="place__name">Домбай</h2>
+             <button class="place__like-button place__like-button_active" type="button">
              </button>
           </div>
         </li>
         <li class="place">
           <img src="images/place-elbrus.jpg" alt="" class="place__photo">
           <div class="place__desc">
-             <p class="place__name">Гора Эльбрус</p>
-             <button class="place__like-button"></button>
+             <h2 class="place__name">Гора Эльбрус</h2>
+             <button class="place__like-button" type="button"></button>
           </div>
         </li>
         <li class="place">
           <img src="images/place-dombaj.jpg" alt="" class="place__photo">
           <div class="place__desc">
-             <p class="place__name">Домбай</p>
-             <button class="place__like-button"></button>
+             <h2 class="place__name">Домбай</h2>
+             <button class="place__like-button" type="button"></button>
           </div>
         </li>
         <li class="place">
           <img src="images/place-karachaevsk.jpg" alt="" class="place__photo">
           <div class="place__desc">
-             <p class="place__name">Карачаево-Черкессия</p>
-             <button class="place__like-button"></button>
+             <h2 class="place__name">Карачаево-Черкессия</h2>
+             <button class="place__like-button" type="button"></button>
           </div>
         </li>
       </ul>
