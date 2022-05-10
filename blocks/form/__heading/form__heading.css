@@ -6,3 +6,11 @@
   line-height: 1.2;
   color: #000000;
 }
+
+@media screen and (max-width: 783px) {
+  .form__heading {
+    font-size: 18px;
+    line-height: 1.22;
+    margin-bottom: 75px;
+  }
+}

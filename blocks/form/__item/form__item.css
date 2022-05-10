@@ -12,31 +12,42 @@
   color: #000000;
   margin-bottom: 24px;
 }
+
 .form__item:last-of-type {
   margin-bottom: 0;
 }
-/* TODO or delete*/
-/* .form__item::placeholder {
+
+.form__item:focus {
+  outline-color: rgba(0, 0, 0, .2);
+}
+
+.form__item::placeholder {
   font-size: 14px;
-  font-family: 'Alegreya Sans';
-  line-height: 20px;
-  color: #bcbcc4;
+  font-family: inherit;
+  line-height: 1.21;
+  color:#D3D3D3;
 }
 .form__item::-webkit-input-placeholder {
   font-size: 14px;
-  font-family: 'Alegreya Sans';
-  line-height: 20px;
-  color: #bcbcc4;
+  font-family: inherit;
+  line-height: 1.21;
+  color: #D3D3D3;
 }
 .form__item::-moz-placeholder {
   font-size: 14px;
-  font-family: 'Alegreya Sans';
-  line-height: 20px;
-  color: #bcbcc4;
+  font-family: inherit;
+  line-height: 1.21;
+  color: #D3D3D3;
 }
 .form__item::-ms-input-placeholder {
   font-size: 14px;
-  font-family: 'Alegreya Sans';
-  line-height: 20px;
+  font-family: inherit;
+  line-height: 1.21;
   color: #bcbcc4;
-} */
+}
+
+@media screen and (max-width: 783px) {
+  .form__item {
+    margin-bottom: 27px;
+  }
+}
