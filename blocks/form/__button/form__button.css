@@ -1,12 +1,17 @@
 .form__button {
   padding: 0;
   box-sizing: border-box;
-  border: 1px solid #000000;
+  border: none;
   border-radius: 2px;
   background-color: #000000;
   color: #ffffff;
   width: 100%;
   height: 50px;
-  padding-top: 13px;
-  padding-bottom: 17px;
+  padding-top: 14px;
+  padding-bottom: 18px;
+  cursor: url(../../../images/pointer-hand.svg) 15 0, pointer;
+}
+
+.form__button:hover {
+  background-color:rgba(0, 0, 0, .8);
 }
