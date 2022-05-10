@@ -9,7 +9,7 @@
   height: 50px;
   padding-top: 14px;
   padding-bottom: 18px;
-  cursor: url(../../../images/pointer-hand.svg) 15 0, pointer;
+  cursor: pointer;
 }
 
 .form__button:hover {

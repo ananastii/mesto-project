@@ -10,7 +10,7 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  cursor: url(../../../images/pointer-hand.svg) 15 0, pointer;
+  cursor: pointer;
 }
 
 .popup__close-button:hover {
