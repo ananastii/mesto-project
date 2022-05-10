@@ -9,7 +9,12 @@
   background-repeat: no-repeat;
   background-color: transparent;
   margin-left: auto;
+<<<<<<< HEAD
   cursor: url(../../../images/pointer-hand.svg) 15 0, pointer;
+=======
+  cursor: pointer;
+}
+>>>>>>> c83ea17 (Исправлены размеры элементов профиля на 320px)
 
 .profile__add-button:hover {
   opacity: .6;
