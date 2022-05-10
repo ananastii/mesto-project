@@ -13,5 +13,8 @@
   .profile__desc {
     max-width: 100%;
     text-align: center;
+    font-size: 14px;
+    line-height: 1.21;
+    padding-top: 7px;
   }
 }
