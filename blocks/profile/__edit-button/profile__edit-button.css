@@ -8,7 +8,7 @@
   background-position: center;
   width: 24px;
   height: 24px;
-  cursor: url(../../../images/pointer-hand.svg) 15 0, pointer;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {
