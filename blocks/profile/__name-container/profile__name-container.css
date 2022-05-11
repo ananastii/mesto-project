@@ -8,6 +8,7 @@
 @media screen and (max-width: 783px) {
   .profile__name-container {
     gap: 10px;
-    padding-left: calc((10px + 18px)/2);
+    justify-content: center;
+    padding-left: 28px;
   }
 }
