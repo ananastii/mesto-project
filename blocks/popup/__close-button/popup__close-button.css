@@ -5,6 +5,7 @@
   background-image: url(../../../images/buttons/button-close.svg);
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   width: 32px;
   height: 32px;
   position: absolute;
