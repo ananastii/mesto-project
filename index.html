@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="pages/index.css">
-  <title>Mesto</title>
+  <title>Место</title>
 </head>
 <body class="page">
   <div class="page__container">
@@ -23,19 +23,19 @@
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
-      <section class="popup">
+      <div class="popup">
         <div class="popup__container">
           <button class="popup__close-button" type="button"></button>
-            <form class="form">
+            <form class="form" name="profile-edit">
               <h2 class="form__heading">Редактировать профиль</h2>
               <fieldset class="form__input-container">
                 <input type="text" class="form__item" id="profile-name" name="profile-name" placeholder="Имя" value="Жак Ив Кусто" required>
                 <input type="text" class="form__item" id="profile-desc" name="profile-desc" placeholder="Описание профиля" value="Исследователь океана">
               </fieldset>
-              <button type="submit" class="form__button" value="submit"><span class="form__button-text">Сохранить</span></button>
+              <button type="submit" class="form__button" value="submit"><span class="form__button-text"></span>Сохранить</span></button>
             </form>
         </div>
-      </section>
+      </div>
       <section class="places">
       <ul class="places__grid">
         <li class="place">
