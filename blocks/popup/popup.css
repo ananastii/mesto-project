@@ -1,8 +1,11 @@
 .popup {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.6s, opacity 0.6s;
+  display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgb(0, 0, 0, .5);
   position: fixed;
   top: 0;
   left: 0;
