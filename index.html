@@ -36,12 +36,25 @@
             </form>
         </div>
       </div>
+      <div class="popup">
+        <div class="popup__container">
+          <button class="popup__close-button" type="button" aria-label="Закрыть окно редактирования"></button>
+            <form class="form" name="place-add">
+              <h2 class="form__heading">Новое место</h2>
+              <fieldset class="form__input-container">
+                <input type="text" class="form__item" id="place-name" name="profile-name" placeholder="Название" required>
+                <input type="text" class="form__item" id="place-link" name="profile-desc" placeholder="Ссылка на картинку" required>
+              </fieldset>
+              <button type="submit" class="form__button" value="submit">Создать</button>
+            </form>
+        </div>
+      </div>
       <section class="places">
       <ul class="places__grid">
         <li class="place">
           <button class="place__delete-button" type="button"></button>
-         <img src="images/place-karachaevsk.jpg" alt="Старинное каменное здание в горах" class="place__photo">
-         <div class="place__desc">
+          <img src="images/place-karachaevsk.jpg" alt="Старинное каменное здание в горах" class="place__photo">
+          <div class="place__desc">
             <h2 class="place__name">Карачаевск</h2>
             <button class="place__like-button" type="button">
             </button>
@@ -58,7 +71,7 @@
         </li>
         <li class="place">
           <button class="place__delete-button" type="button"></button>
-          <img src="images/place-dombaj.jpg" alt="Лесистый склон, за ним - каменистая заснеженная вершина"class="place__photo">
+          <img src="images/place-dombaj.jpg" alt="Лесистый склон, за ним - каменистая заснеженная вершина" class="place__photo">
           <div class="place__desc">
              <h2 class="place__name">Домбай</h2>
              <button class="place__like-button place__like-button_active" type="button">
