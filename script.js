@@ -28,6 +28,13 @@ placeAddPopupCloseButton.addEventListener('click', () => {
   toggleStatePopup(placeAddPopup);
 });
 
+// Активные лайка
+const likeButtons = document.querySelectorAll('.place__like-button');
 
+likeButtons.forEach((button)=> {
+  button.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('place__like-button_active')
+  })
+});
 
 
