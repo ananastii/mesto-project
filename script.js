@@ -1,19 +1,33 @@
-let popup = document.querySelector('.popup');
-let profileEditButton = document.querySelector('.profile__edit-button');
-let popupCloseButton = document.querySelector('.popup__close-button');
+function toggleStatePopup(popup) {
+  popup.classList.toggle('popup_opened');
+}
 
-profileEditButton.addEventListener('click', function () {
-  popup.classList.add('popup_opened');
+// Открытие и закрытие popup для редактирования профиля
+const profileEditPopup = document.querySelector('#popup_profile-edit');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileEditPopupCloseButton = profileEditPopup.querySelector('.popup__close-button');
+
+profileEditButton.addEventListener('click', () => {
+  toggleStatePopup(profileEditPopup);
 });
 
-popupCloseButton.addEventListener('click', function () {
-  popup.classList.remove('popup_opened');
-})
+profileEditPopupCloseButton.addEventListener('click', () => {
+  toggleStatePopup(profileEditPopup);
+});
 
-let placeLikeButtons = document.querySelectorAll('.place__like-button');
+// Открытие и закрытие popup для добавления места профиля
+const placeAddPopup = document.querySelector('#popup_place-add');
+const placeAddButton = document.querySelector('.profile__add-button');
+const placeAddPopupCloseButton = placeAddPopup.querySelector('.popup__close-button');
 
-placeLikeButtons.forEach(button => button.addEventListener('click', function ()
-  { console.log(this);
-    this.classList.toggle('place__like-button_active');
-  })
-)
+placeAddButton.addEventListener('click', () => {
+  toggleStatePopup(placeAddPopup);
+});
+
+placeAddPopupCloseButton.addEventListener('click', () => {
+  toggleStatePopup(placeAddPopup);
+});
+
+
+
+
