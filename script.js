@@ -26,47 +26,41 @@ const initialCards = [
   ];
 
 
-function toggleStatePopup(popup) {
+const toggleStatePopup = function(popup) {
   popup.classList.toggle('popup_opened');
+}
+const setHandlers = function(openBtn, closeBtn, popup){
+  [openBtn, closeBtn].forEach(function(handler) {
+    handler.addEventListener('click', function() {
+      toggleStatePopup(popup);
+    });
+  });
 }
 
 // Открытие и закрытие popup для редактирования профиля
 const profileEditPopup = document.querySelector('#popup_profile-edit');
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileEditPopupCloseButton = profileEditPopup.querySelector('.popup__close-button');
+const profileEditBtn = document.querySelector('.profile__edit-button');
+const profileEditPopupCloseBtn = profileEditPopup.querySelector('.popup__close-button');
 
-profileEditButton.addEventListener('click', () => {
-  toggleStatePopup(profileEditPopup);
-});
-
-profileEditPopupCloseButton.addEventListener('click', () => {
-  toggleStatePopup(profileEditPopup);
-});
+setHandlers(profileEditBtn, profileEditPopupCloseBtn, profileEditPopup);
 
 // Открытие и закрытие popup для добавления места профиля
 const placeAddPopup = document.querySelector('#popup_place-add');
-const placeAddButton = document.querySelector('.profile__add-button');
-const placeAddPopupCloseButton = placeAddPopup.querySelector('.popup__close-button');
+const placeAddBtn = document.querySelector('.profile__add-button');
+const placeAddPopupCloseBtn = placeAddPopup.querySelector('.popup__close-button');
 
-placeAddButton.addEventListener('click', () => {
-  toggleStatePopup(placeAddPopup);
-});
-
-placeAddPopupCloseButton.addEventListener('click', () => {
-  toggleStatePopup(placeAddPopup);
-});
-
+setHandlers(placeAddBtn, placeAddPopupCloseBtn, placeAddPopup);
 // Добавление карточки
 
-const placesGrid = document.querySelector('.places__grid');
-
-function addplaceElement(placeName, placeImgSrc) {
+const createPlaceCard = function(data) {
+  const placeName = data.name;
+  const placeImgSrc = data.link;
   const placeTemplate = document.querySelector('#place-template').content;
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
   const placeTitle = placeElement.querySelector('.place__name');
   const placeImg = placeElement.querySelector('.place__photo');
-  const placeLikeButton = placeElement.querySelector('.place__like-button');
-  const placeDeleteButton = placeElement.querySelector('.place__delete-button');
+  const placeLikeBtn = placeElement.querySelector('.place__like-button');
+  const placeDeleteBtn = placeElement.querySelector('.place__delete-button');
   const placePopup = placeElement.querySelector('#popup_image-open');
   const placeImgFull = placePopup.querySelector('.popup__image');
   const placeCaption = placePopup.querySelector('.popup__caption');
@@ -79,22 +73,27 @@ function addplaceElement(placeName, placeImgSrc) {
   placeImgFull.setAttribute('src', placeImgSrc);
   placeImgFull.setAttribute('alt', placeName);
 
-  placeLikeButton.addEventListener('click', function (evt) {
+  placeLikeBtn.addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-button_active');
   });
 
-  placeDeleteButton.addEventListener('click', function () {
+  placeDeleteBtn.addEventListener('click', function () {
     placeElement.remove()
   });
 
-  [placeImg, placePopupCloseBtn].forEach(function(handler) {
-    handler.addEventListener('click', function() {
-      toggleStatePopup(placePopup);
-    });
-  });
+  setHandlers(placeImg, placePopupCloseBtn, placePopup);
 
-placesGrid.prepend(placeElement);
+  return placeElement;
 }
 
+const addToContainer = function(container, data) {
+  const card = createPlaceCard(data);
+  container.prepend(card);
+}
+
+const placesGrid = document.querySelector('.places__grid');
+
 // Добавление начальных карточек
-initialCards.forEach(card => addplaceElement(card.name, card.link));
+initialCards.forEach((card) => {
+  addToContainer(placesGrid, card);
+});
