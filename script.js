@@ -60,37 +60,41 @@ placeAddPopupCloseButton.addEventListener('click', () => {
 
 const placesGrid = document.querySelector('.places__grid');
 
-function addPlaceCard(placeName, placeImgSrc) {
+function addplaceElement(placeName, placeImgSrc) {
   const placeTemplate = document.querySelector('#place-template').content;
-  const placeCard = placeTemplate.querySelector('.place').cloneNode(true);
-  const placeTitle = placeCard.querySelector('.place__name');
-  const placeImg = placeCard.querySelector('.place__photo');
-  const placeLikeButton = placeCard.querySelector('.place__like-button');
-  const placeDeleteButton = placeCard.querySelector('.place__delete-button');
+  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
+  const placeTitle = placeElement.querySelector('.place__name');
+  const placeImg = placeElement.querySelector('.place__photo');
+  const placeLikeButton = placeElement.querySelector('.place__like-button');
+  const placeDeleteButton = placeElement.querySelector('.place__delete-button');
+  const placePopup = placeElement.querySelector('#popup_image-open');
+  const placeImgFull = placePopup.querySelector('.popup__image');
+  const placeCaption = placePopup.querySelector('.popup__caption');
+  const placePopupCloseBtn = placePopup.querySelector('.popup__close-button');
 
   placeTitle.textContent = placeName;
   placeImg.setAttribute('src', placeImgSrc);
   placeImg.setAttribute('alt', placeName);
+  placeCaption.textContent = placeName;
+  placeImgFull.setAttribute('src', placeImgSrc);
+  placeImgFull.setAttribute('alt', placeName);
 
   placeLikeButton.addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-button_active');
   });
 
   placeDeleteButton.addEventListener('click', function () {
-    placeCard.remove()
+    placeElement.remove()
   });
 
-placesGrid.prepend(placeCard);
+  [placeImg, placePopupCloseBtn].forEach(function(handler) {
+    handler.addEventListener('click', function() {
+      toggleStatePopup(placePopup);
+    });
+  });
+
+placesGrid.prepend(placeElement);
 }
 
 // Добавление начальных карточек
-initialCards.forEach(card => addPlaceCard(card.name, card.link));
-
-// Удаление карточки при нажатии на кнопку
-// const deleteButtons = document.querySelectorAll('.place__delete-button');
-
-// deleteButtons.forEach((button) => {
-//   button.addEventListener('click', function(evt) {
-//     console.dir(evt);
-//   })
-// });
+initialCards.forEach(card => addplaceElement(card.name, card.link));
