@@ -1,0 +1,10 @@
+.popup_content_figure {
+  padding-top: calc((12px*1.25 + 10px)/2);
+  background-color: rgb(0, 0, 0, .9);
+}
+
+@media screen and (max-width: 783px) {
+  .popup_content_figure {
+    padding-top: calc((12px*1.21 + 10px)/2);
+  }
+}
