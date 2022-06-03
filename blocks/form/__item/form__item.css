@@ -11,6 +11,7 @@
   line-height: 1.21;
   color: #000000;
   margin-bottom: 24px;
+  outline: none;
 }
 
 .form__item:last-of-type {
