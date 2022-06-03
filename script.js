@@ -50,8 +50,18 @@ const placeAddBtn = document.querySelector('.profile__add-button');
 const placeAddPopupCloseBtn = placeAddPopup.querySelector('.popup__close-button');
 
 setHandlers(placeAddBtn, placeAddPopupCloseBtn, placeAddPopup);
-// Добавление карточки
 
+// popup для карточки
+const placePopupElement = document.querySelector('#popup_image-open');
+const placePopupCloseBtn = placePopupElement.querySelector('.popup__close-button');
+const placePopupImg = placePopupElement.querySelector('.popup__image');
+const placeCaptionElement = placePopupElement.querySelector('.popup__caption');
+
+placePopupCloseBtn.addEventListener('click', function () {
+  toggleStatePopup(placePopupElement);
+});
+
+// Добавление карточки
 const createPlaceCard = function(placeName, placeImgSrc) {
   const placeTemplate = document.querySelector('#place-template').content;
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
@@ -59,17 +69,11 @@ const createPlaceCard = function(placeName, placeImgSrc) {
   const placeImgElement = placeElement.querySelector('.place__photo');
   const placeLikeBtn = placeElement.querySelector('.place__like-button');
   const placeDeleteBtn = placeElement.querySelector('.place__delete-button');
-  const placePopupElement = placeElement.querySelector('#popup_image-open');
-  const placeImgFullElement = placePopupElement.querySelector('.popup__image');
-  const placeCaptionElement = placePopupElement.querySelector('.popup__caption');
-  const placePopupCloseBtn = placePopupElement .querySelector('.popup__close-button');
 
   placeTitleElement.textContent = placeName;
   placeImgElement.setAttribute('src', placeImgSrc);
   placeImgElement.setAttribute('alt', placeName);
   placeCaptionElement.textContent = placeName;
-  placeImgFullElement.setAttribute('src', placeImgSrc);
-  placeImgFullElement.setAttribute('alt', placeName);
 
   placeLikeBtn.addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-button_active');
@@ -79,7 +83,11 @@ const createPlaceCard = function(placeName, placeImgSrc) {
     placeElement.remove()
   });
 
-  setHandlers(placeImgElement, placePopupCloseBtn, placePopupElement);
+  placeImgElement.addEventListener('click', function(){
+    placePopupImg.setAttribute('src', placeImgSrc);
+    placePopupImg.setAttribute('alt', placeName);
+    toggleStatePopup(placePopupElement);
+  });
 
   return placeElement;
 }
