@@ -99,7 +99,6 @@ initialCards.forEach((card) => {
 // добавление карточек в форме
 
 const addCardForm = document.querySelector('.form[name=place-add]');
-const addCardBtn = addCardForm.querySelector('.form__button');
 
 addCardForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
@@ -112,3 +111,24 @@ addCardForm.addEventListener('submit', function (evt) {
   evt.target.reset();
 })
 
+// Изменение профиля
+const editProfileForm = document.querySelector('.form[name=profile-edit]');
+const profileElement = document.querySelector('.profile');
+const profileNameElement = profileElement.querySelector('.profile__name');
+const profileDescElement = profileElement.querySelector('.profile__desc');
+
+editProfileForm .addEventListener('submit', function (evt) {
+  evt.preventDefault();
+
+  const inputNameElement = evt.target.querySelector('#profile-name');
+  const inputName = inputNameElement.value
+  const inputDescElement = evt.target.querySelector('#profile-desc');
+  const inputDesc = inputDescElement.value
+
+  inputNameElement.setAttribute('value', inputName);
+  profileNameElement.textContent = inputName;
+  inputDescElement.setAttribute('value', inputDesc);
+  profileDescElement.textContent = inputDesc;
+
+  evt.target.reset();
+});
