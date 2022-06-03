@@ -25,7 +25,7 @@ const initialCards = [
   }
   ];
 
-
+// функции для управления модальными окнами
 const toggleStatePopup = function(popup) {
   popup.classList.toggle('popup_opened');
 }
@@ -100,7 +100,7 @@ initialCards.forEach((card) => {
 
 const addCardForm = document.querySelector('.form[name=place-add]');
 
-addCardForm.addEventListener('submit', function (evt) {
+const addCardByForm = function(evt) {
   evt.preventDefault();
 
   const inputPlaceName = evt.target.querySelector('#place-name').value;
@@ -109,7 +109,9 @@ addCardForm.addEventListener('submit', function (evt) {
   addToContainer(placesGrid, inputPlaceName,inputPlaceLink);
 
   evt.target.reset();
-})
+}
+
+addCardForm.addEventListener('submit', addCardByForm);
 
 // Изменение профиля
 const editProfileForm = document.querySelector('.form[name=profile-edit]');
@@ -117,7 +119,7 @@ const profileElement = document.querySelector('.profile');
 const profileNameElement = profileElement.querySelector('.profile__name');
 const profileDescElement = profileElement.querySelector('.profile__desc');
 
-editProfileForm .addEventListener('submit', function (evt) {
+const editProfile = function(evt) {
   evt.preventDefault();
 
   const inputNameElement = evt.target.querySelector('#profile-name');
@@ -131,4 +133,6 @@ editProfileForm .addEventListener('submit', function (evt) {
   profileDescElement.textContent = inputDesc;
 
   evt.target.reset();
-});
+}
+
+editProfileForm.addEventListener('submit', editProfile);
