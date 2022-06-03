@@ -42,8 +42,8 @@
             <form class="form" name="place-add">
               <h2 class="form__heading">Новое место</h2>
               <fieldset class="form__input-container">
-                <input type="text" class="form__item" id="place-name" name="place-name" placeholder="Название" required>
-                <input type="text" class="form__item" id="place-link" name="place-desc" placeholder="Ссылка на картинку" required>
+                <input type="text" class="form__item" id="place-name" name="place-name" placeholder="Название" oninvalid="this.setCustomValidity('Введите название места')" oninput="this.setCustomValidity('')" required>
+                <input type="text" class="form__item" id="place-link" name="place-desc" placeholder="Ссылка на картинку" oninvalid="this.setCustomValidity('Введите ссылку на изображение')" oninput="this.setCustomValidity('')" required>
               </fieldset>
               <button type="submit" class="form__button" value="submit">Создать</button>
             </form>
