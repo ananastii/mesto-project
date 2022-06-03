@@ -52,26 +52,24 @@ const placeAddPopupCloseBtn = placeAddPopup.querySelector('.popup__close-button'
 setHandlers(placeAddBtn, placeAddPopupCloseBtn, placeAddPopup);
 // Добавление карточки
 
-const createPlaceCard = function(data) {
-  const placeName = data.name;
-  const placeImgSrc = data.link;
+const createPlaceCard = function(placeName, placeImgSrc) {
   const placeTemplate = document.querySelector('#place-template').content;
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
-  const placeTitle = placeElement.querySelector('.place__name');
-  const placeImg = placeElement.querySelector('.place__photo');
+  const placeTitleElement = placeElement.querySelector('.place__name');
+  const placeImgElement = placeElement.querySelector('.place__photo');
   const placeLikeBtn = placeElement.querySelector('.place__like-button');
   const placeDeleteBtn = placeElement.querySelector('.place__delete-button');
-  const placePopup = placeElement.querySelector('#popup_image-open');
-  const placeImgFull = placePopup.querySelector('.popup__image');
-  const placeCaption = placePopup.querySelector('.popup__caption');
-  const placePopupCloseBtn = placePopup.querySelector('.popup__close-button');
+  const placePopupElement = placeElement.querySelector('#popup_image-open');
+  const placeImgFullElement = placePopupElement.querySelector('.popup__image');
+  const placeCaptionElement = placePopupElement.querySelector('.popup__caption');
+  const placePopupCloseBtn = placePopupElement .querySelector('.popup__close-button');
 
-  placeTitle.textContent = placeName;
-  placeImg.setAttribute('src', placeImgSrc);
-  placeImg.setAttribute('alt', placeName);
-  placeCaption.textContent = placeName;
-  placeImgFull.setAttribute('src', placeImgSrc);
-  placeImgFull.setAttribute('alt', placeName);
+  placeTitleElement.textContent = placeName;
+  placeImgElement.setAttribute('src', placeImgSrc);
+  placeImgElement.setAttribute('alt', placeName);
+  placeCaptionElement.textContent = placeName;
+  placeImgFullElement.setAttribute('src', placeImgSrc);
+  placeImgFullElement.setAttribute('alt', placeName);
 
   placeLikeBtn.addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-button_active');
@@ -81,13 +79,13 @@ const createPlaceCard = function(data) {
     placeElement.remove()
   });
 
-  setHandlers(placeImg, placePopupCloseBtn, placePopup);
+  setHandlers(placeImgElement, placePopupCloseBtn, placePopupElement);
 
   return placeElement;
 }
 
-const addToContainer = function(container, data) {
-  const card = createPlaceCard(data);
+const addToContainer = function(container, name, link) {
+  const card = createPlaceCard(name, link);
   container.prepend(card);
 }
 
@@ -95,5 +93,22 @@ const placesGrid = document.querySelector('.places__grid');
 
 // Добавление начальных карточек
 initialCards.forEach((card) => {
-  addToContainer(placesGrid, card);
+  addToContainer(placesGrid, card.name, card.link);
 });
+
+// добавление карточек в форме
+
+const addCardForm = document.querySelector('.form[name=place-add]');
+const addCardBtn = addCardForm.querySelector('.form__button');
+
+addCardForm.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+
+  const inputPlaceName = evt.target.querySelector('#place-name').value;
+  const inputPlaceLink = evt.target.querySelector('#place-link').value;
+
+  addToContainer(placesGrid, inputPlaceName,inputPlaceLink);
+
+  evt.target.reset();
+})
+
