@@ -4,6 +4,7 @@
   flex-direction: column;
   height: 100%;
   justify-content: center;
+  min-width: 0;
 }
 
 @media screen and (max-width: 783px) {
