@@ -50,6 +50,9 @@ const placePopupCloseBtn = placePopupElement.querySelector('.popup__close-button
 const placePopupImg = placePopupElement.querySelector('.popup__image');
 const placePopupCaption = placePopupElement.querySelector('.popup__caption');
 
+const placesGrid = document.querySelector('.places__grid');
+const popups = document.querySelectorAll('.popup');
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
@@ -58,25 +61,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-profileEditBtn.addEventListener('click', function() {
-  openPopup(profileEditPopup);
-});
-
-placeAddBtn.addEventListener('click', function() {
-  openPopup(placeAddPopup);
-});
-const popups = document.querySelectorAll('.popup');
-
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-     if (evt.target.classList.contains('popup__close-button')) {
-        closePopup(popup)
-      }
-  })
-});
-
-// Добавление карточки
-const createPlaceCard = function(placeName, placeImgSrc) {
+function createPlaceCard(placeName, placeImgSrc) {
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
   const placeTitleElement = placeElement.querySelector('.place__name');
   const placeImgElement = placeElement.querySelector('.place__photo');
@@ -105,21 +90,12 @@ const createPlaceCard = function(placeName, placeImgSrc) {
   return placeElement;
 }
 
-const addToContainer = function(container, name, link) {
+function addToContainer(container, name, link) {
   const card = createPlaceCard(name, link);
   container.prepend(card);
 }
 
-const placesGrid = document.querySelector('.places__grid');
-
-// Добавление начальных карточек
-initialCards.forEach((card) => {
-  addToContainer(placesGrid, card.name, card.link);
-});
-
-// добавление карточек в форме
-
-const addCardByForm = function(evt) {
+function addCardByForm(evt) {
   evt.preventDefault();
 
   const cardPlaceName = placeInputName.value;
@@ -130,11 +106,7 @@ const addCardByForm = function(evt) {
   evt.target.reset();
 }
 
-placeAddForm.addEventListener('submit', addCardByForm);
-
-// Изменение профиля
-
-const editProfile = function(evt) {
+function editProfile(evt) {
   evt.preventDefault();
 
   const inputName = profileInputName.value
@@ -148,4 +120,25 @@ const editProfile = function(evt) {
   evt.target.reset();
 }
 
+initialCards.forEach((card) => {
+  addToContainer(placesGrid, card.name, card.link);
+});
+
+profileEditBtn.addEventListener('click', function() {
+  openPopup(profileEditPopup);
+});
+
+placeAddBtn.addEventListener('click', function() {
+  openPopup(placeAddPopup);
+});
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+     if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
+});
+
+placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
