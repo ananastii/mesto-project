@@ -25,45 +25,43 @@ const initialCards = [
   }
   ];
 
-// функции для управления модальными окнами
-const toggleStatePopup = function(popup) {
-  popup.classList.toggle('popup_opened');
-}
-const setHandlers = function(openBtn, closeBtn, popup){
-  [openBtn, closeBtn].forEach(function(handler) {
-    handler.addEventListener('click', function() {
-      toggleStatePopup(popup);
-    });
-  });
-}
+const placeTemplate = document.querySelector('#place-template').content;
 
-// Открытие и закрытие popup для редактирования профиля
+const profileElement = document.querySelector('.profile');
+const profileNameElement = profileElement.querySelector('.profile__name');
+const profileDescElement = profileElement.querySelector('.profile__desc');
+const profileEditBtn = profileElement.querySelector('.profile__edit-button');
+
 const profileEditPopup = document.querySelector('#popup_profile-edit');
-const profileEditBtn = document.querySelector('.profile__edit-button');
 const profileEditPopupCloseBtn = profileEditPopup.querySelector('.popup__close-button');
+const profileEditForm = profileEditPopup.querySelector('.form[name=profile-edit]');
+const profileInputName = profileEditForm.querySelector('#profile-name');
+const profileInputDesc = profileEditForm.querySelector('#profile-desc');
 
-setHandlers(profileEditBtn, profileEditPopupCloseBtn, profileEditPopup);
-
-// Открытие и закрытие popup для добавления места профиля
+const placeAddBtn = profileElement.querySelector('.profile__add-button');
 const placeAddPopup = document.querySelector('#popup_place-add');
-const placeAddBtn = document.querySelector('.profile__add-button');
 const placeAddPopupCloseBtn = placeAddPopup.querySelector('.popup__close-button');
+const placeAddForm = placeAddPopup.querySelector('.form[name=place-add]');
+const placeInputName = placeAddForm.querySelector('#place-name');
+const placeInputLink = placeAddForm.querySelector('#place-link');
 
-setHandlers(placeAddBtn, placeAddPopupCloseBtn, placeAddPopup);
-
-// popup для карточки
 const placePopupElement = document.querySelector('#popup_image-open');
 const placePopupCloseBtn = placePopupElement.querySelector('.popup__close-button');
 const placePopupImg = placePopupElement.querySelector('.popup__image');
-const placeCaptionElement = placePopupElement.querySelector('.popup__caption');
+const placePopupCaption = placePopupElement.querySelector('.popup__caption');
 
-placePopupCloseBtn.addEventListener('click', function () {
-  toggleStatePopup(placePopupElement);
-});
+const placesGrid = document.querySelector('.places__grid');
+const popups = document.querySelectorAll('.popup');
 
-// Добавление карточки
-const createPlaceCard = function(placeName, placeImgSrc) {
-  const placeTemplate = document.querySelector('#place-template').content;
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+function createPlaceCard(placeName, placeImgSrc) {
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
   const placeTitleElement = placeElement.querySelector('.place__name');
   const placeImgElement = placeElement.querySelector('.place__photo');
@@ -79,68 +77,70 @@ const createPlaceCard = function(placeName, placeImgSrc) {
   });
 
   placeDeleteBtn.addEventListener('click', function () {
-    placeElement.remove()
+    placeElement.remove();
   });
 
   placeImgElement.addEventListener('click', function(){
     placePopupImg.setAttribute('src', placeImgSrc);
     placePopupImg.setAttribute('alt', placeName);
-    placeCaptionElement.textContent = placeName;
-    toggleStatePopup(placePopupElement);
+    placePopupCaption.textContent = placeName;
+    openPopup(placePopupElement);
   });
 
   return placeElement;
 }
 
-const addToContainer = function(container, name, link) {
+function addToContainer(container, name, link) {
   const card = createPlaceCard(name, link);
   container.prepend(card);
 }
 
-const placesGrid = document.querySelector('.places__grid');
-
-// Добавление начальных карточек
-initialCards.forEach((card) => {
-  addToContainer(placesGrid, card.name, card.link);
-});
-
-// добавление карточек в форме
-
-const addCardForm = document.querySelector('.form[name=place-add]');
-
-const addCardByForm = function(evt) {
+function addCardByForm(evt) {
   evt.preventDefault();
 
-  const inputPlaceName = evt.target.querySelector('#place-name').value;
-  const inputPlaceLink = evt.target.querySelector('#place-link').value;
+  const cardPlaceName = placeInputName.value;
+  const cardPlaceLink = placeInputLink.value;
 
-  addToContainer(placesGrid, inputPlaceName,inputPlaceLink);
+  addToContainer(placesGrid, cardPlaceName, cardPlaceLink);
 
   evt.target.reset();
 }
 
-addCardForm.addEventListener('submit', addCardByForm);
-
-// Изменение профиля
-const editProfileForm = document.querySelector('.form[name=profile-edit]');
-const profileElement = document.querySelector('.profile');
-const profileNameElement = profileElement.querySelector('.profile__name');
-const profileDescElement = profileElement.querySelector('.profile__desc');
-
-const editProfile = function(evt) {
+function editProfile(evt) {
   evt.preventDefault();
 
-  const inputNameElement = evt.target.querySelector('#profile-name');
-  const inputName = inputNameElement.value
-  const inputDescElement = evt.target.querySelector('#profile-desc');
-  const inputDesc = inputDescElement.value
+  const inputName = profileInputName.value
+  const inputDesc = profileInputDesc.value
 
-  inputNameElement.setAttribute('value', inputName);
+  profileInputName.setAttribute('value', inputName);
   profileNameElement.textContent = inputName;
-  inputDescElement.setAttribute('value', inputDesc);
+  profileInputDesc.setAttribute('value', inputDesc);
   profileDescElement.textContent = inputDesc;
 
   evt.target.reset();
 }
 
-editProfileForm.addEventListener('submit', editProfile);
+initialCards.forEach((card) => {
+  addToContainer(placesGrid, card.name, card.link);
+});
+
+profileEditBtn.addEventListener('click', function() {
+  openPopup(profileEditPopup);
+  profileInputName.value = profileNameElement.textContent;
+  profileInputDesc.value = profileDescElement.textContent;
+});
+
+placeAddBtn.addEventListener('click', function() {
+  openPopup(placeAddPopup);
+});
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+     if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
+});
+
+placeAddForm.addEventListener('submit', addCardByForm);
+profileEditForm.addEventListener('submit', editProfile);
