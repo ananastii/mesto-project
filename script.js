@@ -50,31 +50,32 @@ const placePopupCloseBtn = placePopupElement.querySelector('.popup__close-button
 const placePopupImg = placePopupElement.querySelector('.popup__image');
 const placePopupCaption = placePopupElement.querySelector('.popup__caption');
 
-
-// функции для управления модальными окнами
-const toggleStatePopup = function(popup) {
-  popup.classList.toggle('popup_opened');
-}
-const setHandlers = function(openBtn, closeBtn, popup){
-  [openBtn, closeBtn].forEach(function(handler) {
-    handler.addEventListener('click', function() {
-      toggleStatePopup(popup);
-    });
-  });
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
-// Открытие и закрытие popup для редактирования профиля
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
 
-setHandlers(profileEditBtn, profileEditPopupCloseBtn, profileEditPopup);
+profileEditBtn.addEventListener('click', function() {
+  openPopup(profileEditPopup);
+});
 
-// Открытие и закрытие popup для добавления места профиля
+placeAddBtn.addEventListener('click', function() {
+  openPopup(placeAddPopup);
+});
 
-setHandlers(placeAddBtn, placeAddPopupCloseBtn, placeAddPopup);
+profileEditPopupCloseBtn.addEventListener('click', function() {
+  closePopup(profileEditPopup);
+});
 
-// popup для карточки
+placeAddPopupCloseBtn.addEventListener('click', function() {
+  closePopup(placeAddPopup);
+});
 
-placePopupCloseBtn.addEventListener('click', function () {
-  toggleStatePopup(placePopupElement);
+placePopupCloseBtn.addEventListener('click', function() {
+  closePopup(placePopupElement);
 });
 
 // Добавление карточки
@@ -94,14 +95,14 @@ const createPlaceCard = function(placeName, placeImgSrc) {
   });
 
   placeDeleteBtn.addEventListener('click', function () {
-    placeElement.remove()
+    placeElement.remove();
   });
 
   placeImgElement.addEventListener('click', function(){
     placePopupImg.setAttribute('src', placeImgSrc);
     placePopupImg.setAttribute('alt', placeName);
     placePopupCaption.textContent = placeName;
-    toggleStatePopup(placePopupElement);
+    openPopup(placePopupElement);
   });
 
   return placeElement;
