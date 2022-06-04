@@ -73,7 +73,6 @@ const createPlaceCard = function(placeName, placeImgSrc) {
   placeTitleElement.textContent = placeName;
   placeImgElement.setAttribute('src', placeImgSrc);
   placeImgElement.setAttribute('alt', placeName);
-  placeCaptionElement.textContent = placeName;
 
   placeLikeBtn.addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-button_active');
@@ -86,6 +85,7 @@ const createPlaceCard = function(placeName, placeImgSrc) {
   placeImgElement.addEventListener('click', function(){
     placePopupImg.setAttribute('src', placeImgSrc);
     placePopupImg.setAttribute('alt', placeName);
+    placeCaptionElement.textContent = placeName;
     toggleStatePopup(placePopupElement);
   });
 
