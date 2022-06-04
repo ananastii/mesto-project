@@ -126,6 +126,8 @@ initialCards.forEach((card) => {
 
 profileEditBtn.addEventListener('click', function() {
   openPopup(profileEditPopup);
+  profileInputName.value = profileNameElement.textContent;
+  profileInputDesc.value = profileDescElement.textContent;
 });
 
 placeAddBtn.addEventListener('click', function() {
