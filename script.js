@@ -65,17 +65,14 @@ profileEditBtn.addEventListener('click', function() {
 placeAddBtn.addEventListener('click', function() {
   openPopup(placeAddPopup);
 });
+const popups = document.querySelectorAll('.popup');
 
-profileEditPopupCloseBtn.addEventListener('click', function() {
-  closePopup(profileEditPopup);
-});
-
-placeAddPopupCloseBtn.addEventListener('click', function() {
-  closePopup(placeAddPopup);
-});
-
-placePopupCloseBtn.addEventListener('click', function() {
-  closePopup(placePopupElement);
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+     if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
 });
 
 // Добавление карточки
