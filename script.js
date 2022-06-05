@@ -103,6 +103,7 @@ function addCardByForm(evt) {
 
   addToContainer(placesGrid, cardPlaceName, cardPlaceLink);
 
+  closePopup(placeAddPopup);
   evt.target.reset();
 }
 
@@ -117,6 +118,7 @@ function editProfile(evt) {
   profileInputDesc.setAttribute('value', inputDesc);
   profileDescElement.textContent = inputDesc;
 
+  closePopup(profileEditPopup);
   evt.target.reset();
 }
 
