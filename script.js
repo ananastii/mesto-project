@@ -138,11 +138,24 @@ placeAddBtn.addEventListener('click', function() {
 
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-     if (evt.target.classList.contains('popup__close-button')) {
-        closePopup(popup)
-      }
+    if (evt.target.classList.contains('popup__close-button') ||
+      evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
   })
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
+
+// закрытие popup по esc
+function keyHandler(evt) {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
+    if (activePopup) {
+      closePopup(activePopup);
+    }
+  }
+}
+
+document.addEventListener('keydown', keyHandler);
