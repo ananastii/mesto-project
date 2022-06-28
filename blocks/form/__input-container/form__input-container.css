@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   border: none;
-  margin-bottom: 51px;
+  margin-bottom: 22px;
 }
 
-@media screen and (max-width: 783px) {
+@media screen and (max-width: 536px) {
   .form__input-container {
-    margin-bottom: 44px;
+    margin-bottom: 17px;
   }
 }
 

@@ -1,4 +1,4 @@
-.form__item {
+.form__input {
   border: 0;
   padding: 0;
   padding-bottom: 9px;
@@ -14,41 +14,40 @@
   outline: none;
 }
 
-.form__item:last-of-type {
-  margin-bottom: 0;
-}
-
-.form__item:focus {
+.form__input:focus {
   outline-color: rgba(0, 0, 0, .2);
 }
 
-.form__item::placeholder {
+.form__input::placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 1.21;
   color:#D3D3D3;
 }
-.form__item::-webkit-input-placeholder {
+.form__input::-webkit-input-placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 1.21;
   color: #D3D3D3;
 }
-.form__item::-moz-placeholder {
+.form__input::-moz-placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 1.21;
   color: #D3D3D3;
 }
-.form__item::-ms-input-placeholder {
+.form__input::-ms-input-placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 1.21;
   color: #bcbcc4;
 }
 
-@media screen and (max-width: 783px) {
-  .form__item {
+.form__input:invalid {
+  border-bottom-color: #FF0000;
+}
+@media screen and (max-width: 536px) {
+  .form__input {
     margin-bottom: 27px;
   }
 }
