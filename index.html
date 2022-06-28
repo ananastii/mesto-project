@@ -37,6 +37,8 @@
                     name="profile-name"
                     placeholder="Имя"
                     value="Жак Ив Кусто"
+                    minlength="2"
+                    maxlength="40"
                     required
                   >
                   <span class="form__input-error profile-name-error"></span>
@@ -49,6 +51,8 @@
                   name="profile-desc"
                   placeholder="Описание профиля"
                   value="Исследователь океана"
+                  minlength="2"
+                  maxlength="200"
                   required
                   >
                   <span class="form__input-error profile-name-error"></span>
@@ -71,8 +75,8 @@
                     id="place-name"
                     name="place-name"
                     placeholder="Название"
-                    oninvalid="this.setCustomValidity('Введите название места')"
-                    oninput="this.setCustomValidity('')"
+                    minlength="2"
+                    maxlength="30"
                     required
                     >
                   <span class="form__input-error profile-name-error"></span>
@@ -84,8 +88,7 @@
                     id="place-link"
                     name="place-desc"
                     placeholder="Ссылка на картинку"
-                    oninvalid="this.setCustomValidity('Введите ссылку на изображение')"
-                    oninput="this.setCustomValidity('')"
+                    type="url"
                     required
                     >
                   <span class="form__input-error profile-name-error"></span>
