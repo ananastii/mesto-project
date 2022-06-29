@@ -53,6 +53,15 @@ const placePopupCaption = placePopupElement.querySelector('.popup__caption');
 const placesGrid = document.querySelector('.places__grid');
 const popups = document.querySelectorAll('.popup');
 
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inputErrorMsgSelector: '.form__input-error',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'popup__input_error',
+}
+
 // закрытие popup по esc
 const keyHandler = (evt) => {
   if (evt.key === 'Escape') {
@@ -141,12 +150,12 @@ initialCards.forEach((card) => {
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
   profileInputDesc.value = profileDescElement.textContent;
-  hideFormErrors(profileEditForm);
+  hideFormErrors(profileEditForm, validationConfig.inputErrorMsgSelector);
   openPopup(profileEditPopup);
 });
 
-placeAddBtn.addEventListener('click', function() {
-  hideFormErrors(placeAddForm);
+placeAddBtn.addEventListener('click', function(config) {
+  hideFormErrors(placeAddForm, validationConfig.inputErrorMsgSelector);
   openPopup(placeAddPopup);
 });
 
@@ -163,73 +172,68 @@ placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
 
 
-// document.addEventListener('keydown', keyHandler);
-
-// валидация
-// показать сообщение об ошибке
-const showInputError = (inputElement, errorElement) => {
-  errorElement.textContent = inputElement.validationMessage;
-  inputElement.classList.add(`.${inputElement.id}-error`)
+// Валидация форм
+const showInputError = (inputElement, errorMsgElement, inputErrorClass) => {
+  errorMsgElement.textContent = inputElement.validationMessage;
+  inputElement.classList.add(inputErrorClass);
 }
 
-// скрыть сообщение об ошибке
-const hideInputError = (inputElement, errorElement) => {
-  errorElement.textContent = inputElement.validationMessage;
-  inputElement.classList.remove(`.${inputElement.id}-error`)
+const hideInputError = (inputElement, errorMsgElement, inputErrorClass) => {
+  errorMsgElement.textContent = inputElement.validationMessage;
+  inputElement.classList.remove(inputErrorClass);
 }
 
-const hideFormErrors = (formElement) => {
-  const formErrors = formElement.querySelectorAll('.form__input-error');
+const hideFormErrors = (formElement, inputErrorMsgSelector) => {
+  const formErrors = formElement.querySelectorAll(inputErrorMsgSelector);
+  console.log(formErrors);
   formErrors.forEach(error => error.textContent = '');
 }
 
-// кнопка
-const toggleButtonState = (buttonElement, isActive) => {
-  if (isActive) {
-    buttonElement.classList.remove('form__button_inactive');
-    buttonElement.disabled = false;
+const toggleButtonState = (buttonElement, inactiveButtonClass, formElement) => {
+  const isFormValid = formElement.checkValidity();
+  if (isFormValid) {
+      buttonElement.classList.remove(inactiveButtonClass);
+      buttonElement.disabled = false;
   } else {
-    buttonElement.classList.add('form__button_inactive');
-    buttonElement.disabled = 'disabled';
+      buttonElement.classList.add(inactiveButtonClass);
+      buttonElement.disabled = 'disabled';
   }
 }
 
 // проверка валидности на инпуте
-const checkInputValidity = (inputElement) => {
+const checkInputValidity = (formElement, inputElement, inputErrorClass) => {
   const isInputValid = inputElement.validity.valid;
-  const errorElement = inputElement.closest('.form__field').querySelector('.form__input-error');
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 
   if (!isInputValid) {
-    showInputError(inputElement, errorElement);
+    showInputError(inputElement, errorElement, inputErrorClass);
   } else {
-    hideInputError(inputElement, errorElement);
+    hideInputError(inputElement, errorElement, inputErrorClass);
   }
 };
 
-const setEventListeners = (formElement) => {
-  const inputList = formElement.querySelectorAll('.form__input');
-  const buttonElement = formElement.querySelector('.form__button');
+const setEventListeners = (formElement, config) => {
+  const inputsList = formElement.querySelectorAll(config.inputSelector);
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });
 
-  inputList.forEach(input => {
-    toggleButtonState(buttonElement, formElement.checkValidity());
+  inputsList.forEach(input => {
+    toggleButtonState(buttonElement, config.inactiveButtonClass, formElement);
     input.addEventListener('input', (evt) => {
-      checkInputValidity(input);
-      toggleButtonState(buttonElement, formElement.checkValidity()); // так на одном поле, а надо на всех
+      checkInputValidity(formElement, input, config.inputErrorClass);
+      toggleButtonState(buttonElement, config.inactiveButtonClass, formElement);
     })
   })
 }
 
-const enableValidation = () => {
-  // найти все формы
-  const forms = document.querySelectorAll('.form');
-  // на каждую форму навесить слушатели
+const enableValidation = (config) => {
+  const forms = document.querySelectorAll(config.formSelector);
   forms.forEach(form => {
-    setEventListeners(form);
+    setEventListeners(form, config);
   })
-
 }
-enableValidation();
+
+enableValidation(validationConfig);
