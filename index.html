@@ -23,10 +23,10 @@
         </div>
         <button class="button profile__add-button" type="button" aria-label="Добавить карточку места"></button>
       </section>
-      <div class="popup popup_opened" id="popup_profile-edit">
+      <div class="popup" id="popup_profile-edit">
         <div class="popup__container">
           <button class="button popup__close-button" type="button" aria-label="Закрыть окно редактирования"></button>
-            <form class="form" name="profile-edit">
+            <form class="form" name="profile-edit" novalidate>
               <h2 class="form__heading">Редактировать профиль</h2>
               <fieldset class="form__input-container">
                 <div class="form__field">
@@ -41,7 +41,7 @@
                     maxlength="40"
                     required
                   >
-                  <span class="form__input-error profile-name-error"></span>
+                  <span class="form__input-error" id="profile-name-error"></span>
                 </div>
                 <div class="form__field">
                   <input
@@ -55,7 +55,7 @@
                   maxlength="200"
                   required
                   >
-                  <span class="form__input-error profile-name-error"></span>
+                  <span class="form__input-error" id="profile-desc-error"></span>
                 </div>
               </fieldset>
               <button type="submit" class="button form__button" value="submit">Сохранить</button>
@@ -65,7 +65,7 @@
       <div class="popup" id="popup_place-add">
         <div class="popup__container">
           <button class="button popup__close-button" type="button" aria-label="Закрыть окно редактирования"></button>
-            <form class="form" name="place-add">
+            <form class="form" name="place-add" novalidate>
               <h2 class="form__heading">Новое место</h2>
               <fieldset class="form__input-container">
                 <div class="form__field">
@@ -79,11 +79,10 @@
                     maxlength="30"
                     required
                     >
-                  <span class="form__input-error profile-name-error"></span>
+                  <span class="form__input-error"></span>
                 </div>
                 <div class="form__field">
                   <input
-                    type="text"
                     class="form__input"
                     id="place-link"
                     name="place-desc"
@@ -94,7 +93,7 @@
                   <span class="form__input-error profile-name-error"></span>
                 </div>
               </fieldset>
-              <button type="submit" class="button form__button" value="submit"></button>
+              <button type="submit" class="button form__button" value="submit">Создать</button>
             </form>
         </div>
       </div>

@@ -159,3 +159,67 @@ function keyHandler(evt) {
 }
 
 document.addEventListener('keydown', keyHandler);
+
+// валидация
+// показать сообщение об ошибке
+const showInputError = (inputElement, errorElement) => {
+  errorElement.textContent = inputElement.validationMessage;
+  inputElement.classList.add(`.${inputElement.id}-error`)
+}
+
+// скрыть сообщение об ошибке
+const hideInputError = (inputElement, errorElement) => {
+  errorElement.textContent = inputElement.validationMessage;
+  inputElement.classList.remove(`.${inputElement.id}-error`)
+}
+
+// кнопка
+const toggleButtonState = (buttonElement, isActive) => {
+  if (isActive) {
+    buttonElement.classList.remove('form__button_inactive');
+    buttonElement.disabled = false;
+  } else {
+    buttonElement.classList.add('form__button_inactive');
+    buttonElement.disabled = 'disabled';
+  }
+}
+
+// проверка валидности на инпуте
+const checkInputValidity = (inputElement) => {
+  const isInputValid = inputElement.validity.valid;
+  const errorElement = inputElement.closest('.form__field').querySelector('.form__input-error');
+
+  if (!isInputValid) {
+    showInputError(inputElement, errorElement);
+  } else {
+    hideInputError(inputElement, errorElement);
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = formElement.querySelectorAll('.form__input');
+  const buttonElement = formElement.querySelector('.form__button');
+
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
+
+  inputList.forEach(input => {
+    toggleButtonState(buttonElement, formElement.checkValidity());
+    input.addEventListener('input', (evt) => {
+      checkInputValidity(input);
+      toggleButtonState(buttonElement, formElement.checkValidity()); // так на одном поле, а надо на всех
+    })
+  })
+}
+
+const enableValidation = () => {
+  // найти все формы
+  const forms = document.querySelectorAll('.form');
+  // на каждую форму навесить слушатели
+  forms.forEach(form => {
+    setEventListeners(form);
+  })
+
+}
+enableValidation();
