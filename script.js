@@ -127,12 +127,14 @@ initialCards.forEach((card) => {
 });
 
 profileEditBtn.addEventListener('click', function() {
-  openPopup(profileEditPopup);
   profileInputName.value = profileNameElement.textContent;
   profileInputDesc.value = profileDescElement.textContent;
+  hideFormErrors(profileEditForm);
+  openPopup(profileEditPopup);
 });
 
 placeAddBtn.addEventListener('click', function() {
+  hideFormErrors(placeAddForm);
   openPopup(placeAddPopup);
 });
 
@@ -171,6 +173,11 @@ const showInputError = (inputElement, errorElement) => {
 const hideInputError = (inputElement, errorElement) => {
   errorElement.textContent = inputElement.validationMessage;
   inputElement.classList.remove(`.${inputElement.id}-error`)
+}
+
+const hideFormErrors = (formElement) => {
+  const formErrors = formElement.querySelectorAll('.form__input-error');
+  formErrors.forEach(error => error.textContent = '');
 }
 
 // кнопка
