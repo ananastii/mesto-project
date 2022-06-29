@@ -5,7 +5,7 @@
   margin-bottom: 22px;
 }
 
-@media screen and (max-width: 536px) {
+@media screen and (max-width: 783px) {
   .form__input-container {
     margin-bottom: 17px;
   }

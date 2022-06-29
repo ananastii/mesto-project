@@ -7,7 +7,7 @@
   color: #000000;
 }
 
-@media screen and (max-width: 536px) {
+@media screen and (max-width: 783px) {
   .form__heading {
     font-size: 18px;
     line-height: 1.22;

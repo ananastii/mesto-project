@@ -43,7 +43,7 @@
   color: #bcbcc4;
 }
 
-@media screen and (max-width: 536px) {
+@media screen and (max-width: 783px) {
   .form__input {
     margin-bottom: 27px;
   }
