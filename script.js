@@ -53,12 +53,24 @@ const placePopupCaption = placePopupElement.querySelector('.popup__caption');
 const placesGrid = document.querySelector('.places__grid');
 const popups = document.querySelectorAll('.popup');
 
+// закрытие popup по esc
+const keyHandler = (evt) => {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
+    if (activePopup) {
+      closePopup(activePopup);
+    }
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', keyHandler);
 }
 
 function createPlaceCard(placeName, placeImgSrc) {
@@ -150,17 +162,8 @@ popups.forEach((popup) => {
 placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
 
-// закрытие popup по esc
-function keyHandler(evt) {
-  if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup_opened');
-    if (activePopup) {
-      closePopup(activePopup);
-    }
-  }
-}
 
-document.addEventListener('keydown', keyHandler);
+// document.addEventListener('keydown', keyHandler);
 
 // валидация
 // показать сообщение об ошибке
