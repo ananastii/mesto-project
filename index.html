@@ -29,34 +29,30 @@
             <form class="form" name="profile-edit" novalidate>
               <h2 class="form__heading">Редактировать профиль</h2>
               <fieldset class="form__input-container">
-                <!-- <div class="form__field"> -->
-                  <input
-                    type="text"
-                    class="form__input"
-                    id="profile-name"
-                    name="profile-name"
-                    placeholder="Имя"
-                    value="Жак Ив Кусто"
-                    minlength="2"
-                    maxlength="40"
-                    required
-                  >
-                  <span class="form__input-error" id="profile-name-error"></span>
-                <!-- </div> -->
-                <!-- <div class="form__field"> -->
-                  <input
+                <input
                   type="text"
                   class="form__input"
-                  id="profile-desc"
-                  name="profile-desc"
-                  placeholder="Описание профиля"
-                  value="Исследователь океана"
+                  id="profile-name"
+                  name="profile-name"
+                  placeholder="Имя"
+                  value="Жак Ив Кусто"
                   minlength="2"
-                  maxlength="200"
+                  maxlength="40"
                   required
-                  >
-                  <span class="form__input-error" id="profile-desc-error"></span>
-                <!-- </div> -->
+                >
+                <span class="form__input-error" id="profile-name-error"></span>
+                <input
+                type="text"
+                class="form__input"
+                id="profile-desc"
+                name="profile-desc"
+                placeholder="Описание профиля"
+                value="Исследователь океана"
+                minlength="2"
+                maxlength="200"
+                required
+                >
+                <span class="form__input-error" id="profile-desc-error"></span>
               </fieldset>
               <button type="submit" class="button form__button" value="submit">Сохранить</button>
             </form>
@@ -68,30 +64,26 @@
             <form class="form" name="place-add" novalidate>
               <h2 class="form__heading">Новое место</h2>
               <fieldset class="form__input-container">
-                <!-- <div class="form__field"> -->
-                  <input
-                    type="text"
-                    class="form__input"
-                    id="place-name"
-                    name="place-name"
-                    placeholder="Название"
-                    minlength="2"
-                    maxlength="30"
-                    required
-                    >
-                  <span class="form__input-error" id="place-name-error"></span>
-                <!-- </div> -->
-                <!-- <div class="form__field"> -->
-                  <input
-                    class="form__input"
-                    id="place-link"
-                    name="place-link"
-                    placeholder="Ссылка на картинку"
-                    type="url"
-                    required
-                    >
-                  <span class="form__input-error" id="place-link-error"></span>
-                <!-- </div> -->
+                <input
+                  type="text"
+                  class="form__input"
+                  id="place-name"
+                  name="place-name"
+                  placeholder="Название"
+                  minlength="2"
+                  maxlength="30"
+                  required
+                  >
+                <span class="form__input-error" id="place-name-error"></span>
+                <input
+                  class="form__input"
+                  id="place-link"
+                  name="place-link"
+                  placeholder="Ссылка на картинку"
+                  type="url"
+                  required
+                  >
+                <span class="form__input-error" id="place-link-error"></span>
               </fieldset>
               <button type="submit" class="button form__button" value="submit">Создать</button>
             </form>
