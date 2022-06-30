@@ -10,7 +10,6 @@
   font-size: 14px;
   line-height: 1.21;
   color: #000000;
-  margin-bottom: 24px;
   outline: none;
 }
 
@@ -41,10 +40,4 @@
   font-family: inherit;
   line-height: 1.21;
   color: #bcbcc4;
-}
-
-@media screen and (max-width: 783px) {
-  .form__input {
-    margin-bottom: 27px;
-  }
 }

@@ -1,7 +1,6 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 100%;
   background-color: #ffffff;
   min-height: 330px;
   width: 430px;
@@ -15,5 +14,6 @@
   .form {
     min-height: 322px;
     padding: 25px 22px;
+    width: 100%;
   }
 }
