@@ -59,7 +59,7 @@ const validationConfig = {
   submitButtonSelector: '.form__button',
   inputErrorMsgSelector: '.form__input-error',
   inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'popup__input_error',
+  inputErrorClass: 'form__input_invalid',
 }
 
 // закрытие popup по esc
