@@ -1,6 +1,9 @@
-import {placePopupImg, placePopupCaption, placePopupElement} from './index.js';
-import {openPopup} from './index.js'; // tmp
+import {openPopup} from './utils.js';
 export {addToContainer}
+
+const placePopupElement = document.querySelector('#popup_image-open');
+const placePopupImg = placePopupElement.querySelector('.popup__image');
+const placePopupCaption = placePopupElement.querySelector('.popup__caption');
 
 function createPlaceCard(placeName, placeImgSrc, config) {
   const placeTemplate = document.querySelector(config.templateSelector).content;

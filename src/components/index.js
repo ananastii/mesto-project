@@ -1,7 +1,6 @@
 import enableValidation from './validate.js';
 import {addToContainer} from './card.js';
-export {placePopupImg, placePopupCaption, placePopupElement};
-export {openPopup};
+import {openPopup, closePopup, hideFormErrors} from './utils.js';
 
 const initialCards = [
   {
@@ -46,9 +45,7 @@ const placeAddForm = placeAddPopup.querySelector('.form[name=place-add]');
 const placeInputName = placeAddForm.querySelector('#place-name');
 const placeInputLink = placeAddForm.querySelector('#place-link');
 
-const placePopupElement = document.querySelector('#popup_image-open');
-const placePopupImg = placePopupElement.querySelector('.popup__image');
-const placePopupCaption = placePopupElement.querySelector('.popup__caption');
+
 
 const placesGrid = document.querySelector('.places__grid'); // оставим?
 
@@ -82,16 +79,6 @@ const keyHandler = (evt) => {
       closePopup(activePopup);
     }
   }
-}
-
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', keyHandler);
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', keyHandler);
 }
 
 
@@ -129,12 +116,12 @@ initialCards.forEach((card) => {
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
   profileInputDesc.value = profileDescElement.textContent;
-  hideFormErrors(profileEditForm, validationConfig.inputErrorMsgSelector);
+  hideFormErrors(profileEditForm, validationConfig);
   openPopup(profileEditPopup);
 });
 
 placeAddBtn.addEventListener('click', function() {
-  hideFormErrors(placeAddForm, validationConfig.inputErrorMsgSelector);
+  hideFormErrors(placeAddForm, validationConfig);
   openPopup(placeAddPopup);
 });
 
@@ -149,11 +136,5 @@ popups.forEach((popup) => {
 
 placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
-
-
-const hideFormErrors = (formElement, inputErrorMsgSelector) => {
-  const formErrors = formElement.querySelectorAll(inputErrorMsgSelector);
-  formErrors.forEach(error => error.textContent = '');
-}
 
 enableValidation(validationConfig);
