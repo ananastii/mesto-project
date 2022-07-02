@@ -1,6 +1,7 @@
 import enableValidation from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
+import {closeByOverlay} from './modal.js';
 
 const initialCards = [
   {
@@ -71,17 +72,6 @@ const cardConfig = {
 }
 
 
-// закрытие popup по esc
-const keyHandler = (evt) => {
-  if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup_opened');
-    if (activePopup) {
-      closePopup(activePopup);
-    }
-  }
-}
-
-
 function addCardByForm(evt) {
   evt.preventDefault();
 
@@ -125,13 +115,15 @@ placeAddBtn.addEventListener('click', function() {
   openPopup(placeAddPopup);
 });
 
+
+
+
+
+
+
+
 popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup__close-button') ||
-      evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
-    }
-  })
+  popup.addEventListener('click', closeByOverlay);
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);
