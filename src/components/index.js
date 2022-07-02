@@ -2,6 +2,7 @@ import enableValidation from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closeByOverlay} from './modal.js';
+import '../pages/index.css';
 
 const initialCards = [
   {
