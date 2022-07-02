@@ -1,4 +1,4 @@
-import enableValidation from './validate.js';
+import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
@@ -46,6 +46,7 @@ const placeAddPopup = document.querySelector('#popup_place-add');
 const placeAddForm = placeAddPopup.querySelector('.form[name=place-add]');
 const placeInputName = placeAddForm.querySelector('#place-name');
 const placeInputLink = placeAddForm.querySelector('#place-link');
+const placeSubmitBtn = placeAddForm.querySelector('.form__button')
 
 const placesGrid = document.querySelector('.places__grid');
 
@@ -80,6 +81,7 @@ function addCardByForm(evt) {
 
   closePopup(placeAddPopup);
   evt.target.reset();
+  toggleButtonState(placeSubmitBtn, validationConfig.inactiveButtonClass, placeAddForm);
 }
 
 function editProfile(evt) {
@@ -88,13 +90,10 @@ function editProfile(evt) {
   const inputName = profileInputName.value
   const inputDesc = profileInputDesc.value
 
-  profileInputName.setAttribute('value', inputName);
   profileNameElement.textContent = inputName;
-  profileInputDesc.setAttribute('value', inputDesc);
   profileDescElement.textContent = inputDesc;
 
   closePopup(profileEditPopup);
-  evt.target.reset();
 }
 
 initialCards.forEach((card) => {
@@ -114,7 +113,6 @@ popups.forEach((popup) => {
 });
 
 placeAddBtn.addEventListener('click', function() {
-  hideFormErrors(placeAddForm, validationConfig);
   openPopup(placeAddPopup);
 });
 

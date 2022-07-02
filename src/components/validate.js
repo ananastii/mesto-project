@@ -1,3 +1,5 @@
+export {enableValidation, toggleButtonState};
+
 const toggleButtonState = (buttonElement, inactiveButtonClass, formElement) => {
   const isFormValid = formElement.checkValidity();
   if (isFormValid) {
@@ -9,7 +11,7 @@ const toggleButtonState = (buttonElement, inactiveButtonClass, formElement) => {
   }
 }
 
-const showInputError = (inputElement, errorMsgElement, inputErrorClass) => {
+function showInputError(inputElement, errorMsgElement, inputErrorClass) {
   errorMsgElement.textContent = inputElement.validationMessage;
   inputElement.classList.add(inputErrorClass);
 }
@@ -38,8 +40,9 @@ const setEventListeners = (formElement, config) => {
     evt.preventDefault();
   });
 
+  toggleButtonState(buttonElement, config.inactiveButtonClass, formElement);
+
   inputsList.forEach(input => {
-    toggleButtonState(buttonElement, config.inactiveButtonClass, formElement);
     input.addEventListener('input', (evt) => {
       checkInputValidity(formElement, input, config.inputErrorClass);
       toggleButtonState(buttonElement, config.inactiveButtonClass, formElement);
@@ -47,7 +50,7 @@ const setEventListeners = (formElement, config) => {
   })
 }
 
-export default function enableValidation(config){
+function enableValidation(config){
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach(form => {
     setEventListeners(form, config);
