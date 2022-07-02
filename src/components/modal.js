@@ -1,7 +1,7 @@
 import {closePopup} from './utils.js';
-export {closeByOverlay};
+export {closePopupByOverlayAndIcon};
 
-function closeByOverlay (evt) {
+function closePopupByOverlayAndIcon (evt) {
   if (evt.target.classList.contains('popup__close-button') ||
     evt.target.classList.contains('popup_opened')) {
       closePopup(evt.target.closest('.popup'));

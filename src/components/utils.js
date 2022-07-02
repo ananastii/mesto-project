@@ -1,6 +1,6 @@
 export {openPopup, closePopup, hideFormErrors};
 
-const keyHandler = (evt) => {
+const closePopupByEsc = (evt) => {
   if (evt.key === 'Escape') {
     const activePopup = document.querySelector('.popup_opened');
     if (activePopup) {
@@ -11,12 +11,12 @@ const keyHandler = (evt) => {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', keyHandler);
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', keyHandler);
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 const hideFormErrors = (formElement, config) => {
