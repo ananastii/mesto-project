@@ -1,6 +1,5 @@
 export {openPopup, closePopup, hideFormErrors};
 
-// закрытие popup по esc
 const keyHandler = (evt) => {
   if (evt.key === 'Escape') {
     const activePopup = document.querySelector('.popup_opened');

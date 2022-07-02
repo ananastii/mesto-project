@@ -46,9 +46,7 @@ const placeAddForm = placeAddPopup.querySelector('.form[name=place-add]');
 const placeInputName = placeAddForm.querySelector('#place-name');
 const placeInputLink = placeAddForm.querySelector('#place-link');
 
-
-
-const placesGrid = document.querySelector('.places__grid'); // оставим?
+const placesGrid = document.querySelector('.places__grid');
 
 const popups = document.querySelectorAll('.popup');
 
@@ -70,7 +68,6 @@ const cardConfig = {
   cardDeleteSelector: '.place__delete-button',
   likeActiveClass: 'place__like-button_active'
 }
-
 
 function addCardByForm(evt) {
   evt.preventDefault();
@@ -110,20 +107,14 @@ profileEditBtn.addEventListener('click', function() {
   openPopup(profileEditPopup);
 });
 
-placeAddBtn.addEventListener('click', function() {
-  hideFormErrors(placeAddForm, validationConfig);
-  openPopup(placeAddPopup);
-});
-
-
-
-
-
-
-
 
 popups.forEach((popup) => {
   popup.addEventListener('click', closeByOverlay);
+});
+
+placeAddBtn.addEventListener('click', function() {
+  hideFormErrors(placeAddForm, validationConfig);
+  openPopup(placeAddPopup);
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);
