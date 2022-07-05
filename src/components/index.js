@@ -2,12 +2,13 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {getCards} from './api.js';
+import {getCards, getUser} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
 const profileNameElement = profileElement.querySelector('.profile__name');
 const profileDescElement = profileElement.querySelector('.profile__desc');
+const profileImgElement = profileElement.querySelector('.profile__avatar');
 const profileEditBtn = profileElement.querySelector('.profile__edit-button');
 
 const profileEditPopup = document.querySelector('#popup_profile-edit');
@@ -45,6 +46,12 @@ const cardConfig = {
   likeActiveClass: 'place__like-button_active'
 }
 
+function renderUser(name, desc, avatar) {
+  profileNameElement.textContent = name;
+  profileDescElement.textContent = desc;
+  profileImgElement.setAttribute('src', avatar);
+}
+
 function addCardByForm(evt) {
   evt.preventDefault();
 
@@ -76,6 +83,12 @@ getCards()
       addToContainer(placesGrid, card.name, card.link, cardConfig);
     });
   })
+
+getUser()
+  .then((user) => {
+    renderUser(user.name, user.about, user.avatar)
+  });
+
 
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;

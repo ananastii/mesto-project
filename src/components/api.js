@@ -1,4 +1,4 @@
-export {getCards}
+export {getCards, getUser}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
@@ -9,10 +9,16 @@ const config = {
 }
 
 const onResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-
+const onError = (err) => {console.log(err)};
 
 function getCards() {
   return fetch(`${config.baseUrl}/cards`, {headers: config.headers})
   .then(onResponse)
-  .catch(err => console.log(err));
+  .catch(onError);
+}
+
+function getUser() {
+  return fetch(`${config.baseUrl}/users/me`, {headers: config.headers})
+  .then(onResponse)
+  .catch(onError);
 }
