@@ -2,34 +2,8 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
+import {getCards} from './api.js';
 import '../pages/index.css';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-  ];
 
 const profileElement = document.querySelector('.profile');
 const profileNameElement = profileElement.querySelector('.profile__name');
@@ -96,9 +70,12 @@ function editProfile(evt) {
   closePopup(profileEditPopup);
 }
 
-initialCards.forEach((card) => {
-  addToContainer(placesGrid, card.name, card.link, cardConfig);
-});
+getCards()
+ .then((cards) => {
+    cards.forEach((card) => {
+      addToContainer(placesGrid, card.name, card.link, cardConfig);
+    });
+  })
 
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
