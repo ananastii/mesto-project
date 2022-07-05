@@ -1,4 +1,4 @@
-export {onError, getCards, getUser, updateUserInfo, addCard}
+export {onError, getCards, getUser, updateUserInfo, addCard, deleteCard}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
@@ -44,6 +44,15 @@ function addCard(title, url) {
       name: title,
       link: url
     })
+  })
+  .then(onResponse)
+}
+
+function deleteCard(cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+    body: JSON.stringify()
   })
   .then(onResponse)
 }

@@ -2,7 +2,7 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {onError, getCards, getUser, updateUserInfo, addCard} from './api.js';
+import {onError, getCards, getUser, updateUserInfo, addCard, deleteCard} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -43,8 +43,11 @@ const cardConfig = {
   cardImgSelector: '.place__photo',
   cardLikeSelector: '.place__like-button',
   cardDeleteSelector: '.place__delete-button',
-  likeActiveClass: 'place__like-button_active'
+  likeActiveClass: 'place__like-button_active',
+  deleteButtonHiddenClass: 'place__delete-button_hidden',
 }
+
+let myId = '';
 
 function renderUserInfo(name, desc) {
   profileNameElement.textContent = name;
@@ -64,7 +67,7 @@ function addCardByForm(evt) {
 
   addCard(cardPlaceName, cardPlaceLink)
     .then((card) => {
-      addToContainer(placesGrid, card.name, card.link, cardConfig)
+      addToContainer(placesGrid, card, cardConfig, myId, myId);
     })
     .catch(onError);
 
@@ -87,17 +90,18 @@ function editProfile(evt) {
   closePopup(profileEditPopup);
 }
 
-getCards()
- .then((cards) => {
-    cards.forEach((card) => {
-      addToContainer(placesGrid, card.name, card.link, cardConfig);
-    });
+getUser()
+  .then((user) => {
+    renderUser(user.name, user.about, user.avatar);
+    myId = user._id;
   })
   .catch(onError);
 
-getUser()
-  .then((user) => {
-    renderUser(user.name, user.about, user.avatar)
+getCards()
+ .then((cards) => {
+    cards.forEach((card) => {
+      addToContainer(placesGrid, card, cardConfig, myId, card.owner._id);
+    });
   })
   .catch(onError);
 
