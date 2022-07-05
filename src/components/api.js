@@ -36,14 +36,14 @@ function updateUserInfo(userName, userDesc) {
   .then(onResponse)
 }
 
-function addCard(card) {
-//   fetch(`${config.baseUrl}/cards`,
-//     {headers: config.headers}, {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       title: card.name,
-//       body: card.link
-//     }),
-//   })
-//   .then(onResponse)
+function addCard(title, url) {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: title,
+      link: url
+    })
+  })
+  .then(onResponse)
 }

@@ -46,13 +46,13 @@ const cardConfig = {
   likeActiveClass: 'place__like-button_active'
 }
 
-function renderProfileInfo(name, desc) {
+function renderUserInfo(name, desc) {
   profileNameElement.textContent = name;
   profileDescElement.textContent = desc;
 }
 
 function renderUser(name, desc, avatar) {
-  renderProfileInfo(name, desc);
+  renderUserInfo(name, desc);
   profileImgElement.setAttribute('src', avatar);
 }
 
@@ -62,7 +62,11 @@ function addCardByForm(evt) {
   const cardPlaceName = placeInputName.value;
   const cardPlaceLink = placeInputLink.value;
 
-  addToContainer(placesGrid, cardPlaceName, cardPlaceLink, cardConfig);
+  addCard(cardPlaceName, cardPlaceLink)
+    .then((card) => {
+      addToContainer(placesGrid, card.name, card.link, cardConfig)
+    })
+    .catch(onError);
 
   closePopup(placeAddPopup);
   evt.target.reset();
@@ -74,9 +78,10 @@ function editProfile(evt) {
 
   const inputName = profileInputName.value;
   const inputDesc = profileInputDesc.value;
+
   updateUserInfo(inputName, inputDesc)
     .then((user) => {
-      renderProfileInfo(user.name, user.about);
+      renderUserInfo(user.name, user.about);
     })
     .catch(onError);
   closePopup(profileEditPopup);
@@ -94,7 +99,7 @@ getUser()
   .then((user) => {
     renderUser(user.name, user.about, user.avatar)
   })
-  .catch(onError);;
+  .catch(onError);
 
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
