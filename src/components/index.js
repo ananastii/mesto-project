@@ -2,7 +2,7 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {getCards, getUser} from './api.js';
+import {onError, getCards, getUser, updateUserInfo, addCard} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -46,9 +46,13 @@ const cardConfig = {
   likeActiveClass: 'place__like-button_active'
 }
 
-function renderUser(name, desc, avatar) {
+function renderProfileInfo(name, desc) {
   profileNameElement.textContent = name;
   profileDescElement.textContent = desc;
+}
+
+function renderUser(name, desc, avatar) {
+  renderProfileInfo(name, desc);
   profileImgElement.setAttribute('src', avatar);
 }
 
@@ -68,12 +72,13 @@ function addCardByForm(evt) {
 function editProfile(evt) {
   evt.preventDefault();
 
-  const inputName = profileInputName.value
-  const inputDesc = profileInputDesc.value
-
-  profileNameElement.textContent = inputName;
-  profileDescElement.textContent = inputDesc;
-
+  const inputName = profileInputName.value;
+  const inputDesc = profileInputDesc.value;
+  updateUserInfo(inputName, inputDesc)
+    .then((user) => {
+      renderProfileInfo(user.name, user.about);
+    })
+    .catch(onError);
   closePopup(profileEditPopup);
 }
 
@@ -83,12 +88,13 @@ getCards()
       addToContainer(placesGrid, card.name, card.link, cardConfig);
     });
   })
+  .catch(onError);
 
 getUser()
   .then((user) => {
     renderUser(user.name, user.about, user.avatar)
-  });
-
+  })
+  .catch(onError);;
 
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
