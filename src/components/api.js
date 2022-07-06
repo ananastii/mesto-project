@@ -1,4 +1,4 @@
-export {onError, getCards, getUser, updateUserInfo, addCard, deleteCard}
+export {onError, getCards, getUser, updateUserInfo, addCard, deleteCard, editLike}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
@@ -53,6 +53,14 @@ function deleteCard(cardId) {
     method: 'DELETE',
     headers: config.headers,
     body: JSON.stringify()
+  })
+  .then(onResponse)
+}
+
+function editLike(cardId, isLiked) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: isLiked ? 'DELETE' : 'PUT',
+    headers: config.headers
   })
   .then(onResponse)
 }
