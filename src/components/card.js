@@ -12,11 +12,14 @@ function createPlaceCard(card, config, myId, cardOwnerId) {
   const placeTitleElement = placeElement.querySelector(config.cardTitleSelector);
   const placeImgElement = placeElement.querySelector(config.cardImgSelector);
   const placeLikeBtn = placeElement.querySelector(config.cardLikeSelector);
+  //const placeLikeContainer = placeElement.querySelector(config.likeContainerSelector);
+  const placeLikeCounter = placeElement.querySelector(config.likeCounterSelector);
   const placeDeleteBtn = placeElement.querySelector(config.cardDeleteSelector);
 
   placeTitleElement.textContent = card.name;
   placeImgElement.setAttribute('src', card.link);
   placeImgElement.setAttribute('alt', card.name);
+  placeLikeCounter.textContent = card.likes.length;
 
   if (myId === cardOwnerId) {
     placeDeleteBtn.addEventListener('click', function () {

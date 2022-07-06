@@ -44,6 +44,7 @@ const cardConfig = {
   cardLikeSelector: '.place__like-button',
   cardDeleteSelector: '.place__delete-button',
   likeActiveClass: 'place__like-button_active',
+  likeCounterSelector: '.place__like-counter',
   deleteButtonHiddenClass: 'place__delete-button_hidden',
 }
 
