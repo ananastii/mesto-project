@@ -1,5 +1,5 @@
 import {openPopup} from './utils.js';
-import {onError, deleteCard, editLike} from './api';
+import {handleError, deleteCard, editLike} from './api';
 export {addToContainer}
 
 const placePopupElement = document.querySelector('#popup_image-open');
@@ -39,7 +39,7 @@ function createPlaceCard(card, config, myId, cardOwnerId) {
     placeDeleteBtn.addEventListener('click', function () {
       deleteCard(card._id)
         .then(() => placeElement.remove())
-        .catch(onError);
+        .catch(handleError);
     });
   } else {
     placeDeleteBtn.classList.add(config.deleteButtonHiddenClass);
@@ -52,7 +52,7 @@ function createPlaceCard(card, config, myId, cardOwnerId) {
       .then(res => {
         renderLikeView(checkLike, res.likes, myId, placeLikeBtn, config.likeActiveClass, placeLikeCounter)
       })
-      .catch(onError);
+      .catch(handleError);
   });
 
   placeImgElement.addEventListener('click', function(){
