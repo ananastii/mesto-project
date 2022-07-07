@@ -2,7 +2,7 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {onError, getCards, getUser, updateUserInfo, addCard, deleteCard} from './api.js';
+import {onError, getCards, getUser, updateUserInfo, addCard, updateUserAvatar} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -15,6 +15,11 @@ const profileEditPopup = document.querySelector('#popup_profile-edit');
 const profileEditForm = profileEditPopup.querySelector('.form[name=profile-edit]');
 const profileInputName = profileEditForm.querySelector('#profile-name');
 const profileInputDesc = profileEditForm.querySelector('#profile-desc');
+
+const avatarEditBtn = profileElement.querySelector('.profile__avatar-edit-button');
+const avatarEditPopup = document.querySelector('#popup_avatar-edit');
+const avatarEditForm = avatarEditPopup.querySelector('form[name=avatar-edit]');
+const avatarInputLink = avatarEditForm.querySelector('#avatar-link');
 
 const placeAddBtn = profileElement.querySelector('.profile__add-button');
 const placeAddPopup = document.querySelector('#popup_place-add');
@@ -120,6 +125,16 @@ popups.forEach((popup) => {
 
 placeAddBtn.addEventListener('click', function() {
   openPopup(placeAddPopup);
+});
+
+avatarEditBtn.addEventListener('click', function (){
+  openPopup(avatarEditPopup)
+});
+
+avatarEditForm.addEventListener('submit', function() {
+  updateUserAvatar(avatarInputLink.value)
+  .then(user => profileImgElement.setAttribute('src', user.avatar))
+  .catch(onError)
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);

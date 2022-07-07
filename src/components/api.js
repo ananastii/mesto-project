@@ -1,4 +1,4 @@
-export {onError, getCards, getUser, updateUserInfo, addCard, deleteCard, editLike}
+export {onError, getCards, getUser, updateUserInfo, updateUserAvatar ,addCard, deleteCard, editLike}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
@@ -31,6 +31,17 @@ function updateUserInfo(userName, userDesc) {
     body: JSON.stringify({
       name: userName,
       about: userDesc
+    })
+  })
+  .then(onResponse)
+}
+
+function updateUserAvatar(userPic) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: userPic,
     })
   })
   .then(onResponse)
