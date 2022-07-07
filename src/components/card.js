@@ -38,7 +38,7 @@ function createPlaceCard(card, config, myId, cardOwnerId) {
   if (myId === cardOwnerId) {
     placeDeleteBtn.addEventListener('click', function () {
       deleteCard(card._id)
-        .then(placeElement.remove())
+        .then(() => placeElement.remove())
         .catch(onError);
     });
   } else {
