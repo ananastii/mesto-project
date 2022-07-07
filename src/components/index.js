@@ -67,20 +67,20 @@ function renderUser(name, desc, avatar) {
   profileImgElement.setAttribute('src', avatar);
 }
 
-function renderLoading(isLoading, submitButton){
-  const defaultBtnText = submitButton.textContent;
+function renderLoading(isLoading, submitButton, defaultBtnText){
+  console.log(defaultBtnText);
   submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
 }
 
-function handlePopupAfterEvent(popup, popupForm, popupFormSubmitBtn, configValidation) {
-  renderLoading(false, popupFormSubmitBtn);
+function handlePopupAfterEvent(popup, popupForm, popupFormSubmitBtn, configValidation, defaultBtnText='Сохранить') {
+  renderLoading(false, popupFormSubmitBtn, defaultBtnText);
   closePopup(popup);
   toggleButtonState(popupFormSubmitBtn, configValidation.inactiveButtonClass, popupForm);
 }
 
 function addCardByForm(evt) {
   evt.preventDefault();
-  renderLoading(true, placeSubmitBtn);
+  renderLoading(true, placeSubmitBtn, 'Создать');
 
   const cardPlaceName = placeInputName.value;
   const cardPlaceLink = placeInputLink.value;
@@ -90,7 +90,7 @@ function addCardByForm(evt) {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
     })
     .catch(handleError)
-    .finally(handlePopupAfterEvent(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig));
+    .finally(handlePopupAfterEvent(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig, 'Создать'));
   evt.target.reset();
 }
 
