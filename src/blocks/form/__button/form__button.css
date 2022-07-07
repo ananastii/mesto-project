@@ -16,7 +16,7 @@
   background-color:rgba(0, 0, 0, .8);
 }
 
-@media screen and (max-width: 783px) {
+@media screen and (max-width: 536px) {
   .form__button {
     height: 46px;
     font-size: 14px;

@@ -12,16 +12,39 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Бодрый пожилой мужчина в ярко-красной шапочке">
+        <div class="profile__avatar-container">
+          <img class="profile__avatar" alt="Аватар пользователя">
+          <button class="button profile__avatar-edit-button" type="button" aria-label="Изменить аватарку профиля"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__name-container">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h1 class="profile__name"></h1>
             <button class="button profile__edit-button" type="button" aria-label="Изменить имя и описание профиля"></button>
           </div>
-          <p class="profile__desc">Исследователь океана</p>
+          <p class="profile__desc"></p>
         </div>
         <button class="button profile__add-button" type="button" aria-label="Добавить карточку места"></button>
       </section>
+      <div class="popup" id="popup_avatar-edit">
+        <div class="popup__container">
+          <button class="button popup__close-button" type="button" aria-label="Закрыть окно редактирования"></button>
+            <form class="form" name="avatar-edit" novalidate>
+              <h2 class="form__heading">Обновить аватар</h2>
+              <fieldset class="form__input-container">
+                <input
+                  class="form__input"
+                  id="avatar-link"
+                  name="avatar-link"
+                  placeholder="Ссылка на изображение"
+                  type="url"
+                  required
+                  >
+                <span class="form__input-error" id="avatar-link-error"></span>
+              </fieldset>
+              <button type="submit" class="button form__button" value="submit">Сохранить</button>
+            </form>
+        </div>
+      </div>
       <div class="popup" id="popup_profile-edit">
         <div class="popup__container">
           <button class="button popup__close-button" type="button" aria-label="Закрыть окно редактирования"></button>
@@ -109,7 +132,10 @@
       <img class="place__photo">
       <div class="place__desc">
         <h2 class="place__name"></h2>
-        <button class="button place__like-button" type="button"></button>
+        <div class="place__like-container">
+          <button class="button place__like-button" type="button"></button>
+          <div class="place__like-counter"></div>
+        </div>
       </div>
     </li>
   </template>
