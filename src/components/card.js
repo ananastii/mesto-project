@@ -56,9 +56,9 @@ function createPlaceCard(card, config, myId, cardOwnerId) {
   });
 
   placeImgElement.addEventListener('click', function(){
-    placePopupImg.setAttribute('src', card.name);
-    placePopupImg.setAttribute('alt', card.link);
-    placePopupCaption.textContent = placeName;
+    placePopupImg.setAttribute('src', card.link);
+    placePopupImg.setAttribute('alt', card.name);
+    placePopupCaption.textContent = card.name;
     openPopup(placePopupElement);
   });
 
