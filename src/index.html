@@ -12,7 +12,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" alt="Аватар пользователя">
+        <div class="profile__avatar-container">
+          <img class="profile__avatar" alt="Аватар пользователя">
+          <button class="button profile__avatar-edit-button" type="button" aria-label="Изменить аватарку профиля"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__name-container">
             <h1 class="profile__name"></h1>
@@ -22,7 +25,7 @@
         </div>
         <button class="button profile__add-button" type="button" aria-label="Добавить карточку места"></button>
       </section>
-      <div class="popup popup_opened" id="popup_avatar-edit">
+      <div class="popup" id="popup_avatar-edit">
         <div class="popup__container">
           <button class="button popup__close-button" type="button" aria-label="Закрыть окно редактирования"></button>
             <form class="form" name="avatar-edit" novalidate>
