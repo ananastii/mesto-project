@@ -15,18 +15,20 @@ const profileEditPopup = document.querySelector('#popup_profile-edit');
 const profileEditForm = profileEditPopup.querySelector('.form[name=profile-edit]');
 const profileInputName = profileEditForm.querySelector('#profile-name');
 const profileInputDesc = profileEditForm.querySelector('#profile-desc');
+const profileSubmitBtn = profileEditForm.querySelector('.form__button');
 
 const avatarEditBtn = profileElement.querySelector('.profile__avatar-edit-button');
 const avatarEditPopup = document.querySelector('#popup_avatar-edit');
 const avatarEditForm = avatarEditPopup.querySelector('form[name=avatar-edit]');
 const avatarInputLink = avatarEditForm.querySelector('#avatar-link');
+const avatarSubmitBtn = avatarEditForm.querySelector('.form__button');
 
 const placeAddBtn = profileElement.querySelector('.profile__add-button');
 const placeAddPopup = document.querySelector('#popup_place-add');
 const placeAddForm = placeAddPopup.querySelector('.form[name=place-add]');
 const placeInputName = placeAddForm.querySelector('#place-name');
 const placeInputLink = placeAddForm.querySelector('#place-link');
-const placeSubmitBtn = placeAddForm.querySelector('.form__button')
+const placeSubmitBtn = placeAddForm.querySelector('.form__button');
 
 const placesGrid = document.querySelector('.places__grid');
 
@@ -65,8 +67,20 @@ function renderUser(name, desc, avatar) {
   profileImgElement.setAttribute('src', avatar);
 }
 
+function renderLoading(isLoading, submitButton){
+  const defaultBtnText = submitButton.textContent;
+  submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
+}
+
+function handlePopupAfterEvent(popup, popupForm, popupFormSubmitBtn, configValidation) {
+  renderLoading(false, popupFormSubmitBtn);
+  closePopup(popup);
+  toggleButtonState(popupFormSubmitBtn, configValidation.inactiveButtonClass, popupForm);
+}
+
 function addCardByForm(evt) {
   evt.preventDefault();
+  renderLoading(true, placeSubmitBtn);
 
   const cardPlaceName = placeInputName.value;
   const cardPlaceLink = placeInputLink.value;
@@ -75,15 +89,14 @@ function addCardByForm(evt) {
     .then((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
     })
-    .catch(onError);
-
-  closePopup(placeAddPopup);
+    .catch(onError)
+    .finally(handlePopupAfterEvent(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig));
   evt.target.reset();
-  toggleButtonState(placeSubmitBtn, validationConfig.inactiveButtonClass, placeAddForm);
 }
 
 function editProfile(evt) {
   evt.preventDefault();
+  renderLoading(true, profileSubmitBtn);
 
   const inputName = profileInputName.value;
   const inputDesc = profileInputDesc.value;
@@ -92,8 +105,17 @@ function editProfile(evt) {
     .then((user) => {
       renderUserInfo(user.name, user.about);
     })
-    .catch(onError);
-  closePopup(profileEditPopup);
+    .catch(onError)
+    .finally(handlePopupAfterEvent(profileEditPopup, profileEditForm, profileSubmitBtn, validationConfig));
+}
+
+function editAvatar(evt) {
+  evt.preventDefault();
+  renderLoading(true, avatarSubmitBtn);
+  updateUserAvatar(avatarInputLink.value)
+  .then(user => profileImgElement.setAttribute('src', user.avatar))
+  .catch(onError)
+  .finally(handlePopupAfterEvent(avatarEditPopup, avatarEditForm, avatarSubmitBtn, validationConfig));
 }
 
 getUser()
@@ -127,17 +149,12 @@ placeAddBtn.addEventListener('click', function() {
   openPopup(placeAddPopup);
 });
 
-avatarEditBtn.addEventListener('click', function (){
+avatarEditBtn.addEventListener('click', function () {
   openPopup(avatarEditPopup)
-});
-
-avatarEditForm.addEventListener('submit', function() {
-  updateUserAvatar(avatarInputLink.value)
-  .then(user => profileImgElement.setAttribute('src', user.avatar))
-  .catch(onError)
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
+avatarEditForm.addEventListener('submit', editAvatar);
 
 enableValidation(validationConfig);
