@@ -67,16 +67,15 @@ function renderUser(name, desc, avatar) {
   profileImgElement.setAttribute('src', avatar);
 }
 
-function renderLoading(isLoading, submitButton, defaultBtnText){
-  console.log(defaultBtnText);
+function renderLoading(isLoading, submitButton, defaultBtnText = 'Сохранить'){
   submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
 }
 
-function handlePopupAfterEvent(popup, popupForm, popupFormSubmitBtn, configValidation, defaultBtnText='Сохранить') {
-  renderLoading(false, popupFormSubmitBtn, defaultBtnText);
-  closePopup(popup);
-  toggleButtonState(popupFormSubmitBtn, configValidation.inactiveButtonClass, popupForm);
-}
+// function handlePopupAfterSuccess(popup, popupForm, popupFormSubmitBtn, configValidation, defaultBtnText='Сохранить') {
+//   closePopup(popup);
+
+//   toggleButtonState(popupFormSubmitBtn, configValidation.inactiveButtonClass, popupForm);
+// }
 
 function addCardByForm(evt) {
   evt.preventDefault();
@@ -88,10 +87,14 @@ function addCardByForm(evt) {
   addCard(cardPlaceName, cardPlaceLink)
     .then((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
+      closePopup(placeAddPopup);
+      placeAddForm.reset();
+      toggleButtonState(placeSubmitBtn, validationConfig.inactiveButtonClass, placeAddForm);
     })
     .catch(handleError)
-    .finally(handlePopupAfterEvent(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig, 'Создать'));
-  evt.target.reset();
+    .finally(() => {
+      renderLoading(false, placeSubmitBtn, 'Создать');
+    });
 }
 
 function editProfile(evt) {
@@ -104,18 +107,30 @@ function editProfile(evt) {
   updateUserInfo(inputName, inputDesc)
     .then((user) => {
       renderUserInfo(user.name, user.about);
+      closePopup(profileEditPopup);
+      profileEditForm.reset();
+      toggleButtonState(profileSubmitBtn, validationConfig.inactiveButtonClass, profileEditForm);
     })
     .catch(handleError)
-    .finally(handlePopupAfterEvent(profileEditPopup, profileEditForm, profileSubmitBtn, validationConfig));
+    .finally(() => {
+      renderLoading(false, profileSubmitBtn);
+    });
 }
 
 function editAvatar(evt) {
   evt.preventDefault();
   renderLoading(true, avatarSubmitBtn);
   updateUserAvatar(avatarInputLink.value)
-  .then(user => profileImgElement.setAttribute('src', user.avatar))
+  .then(user => {
+    profileImgElement.setAttribute('src', user.avatar);
+    closePopup(avatarEditPopup);
+    avatarEditForm.reset();
+    toggleButtonState(avatarSubmitBtn, validationConfig.inactiveButtonClass, avatarEditForm);
+  })
   .catch(handleError)
-  .finally(handlePopupAfterEvent(avatarEditPopup, avatarEditForm, avatarSubmitBtn, validationConfig));
+  .finally(() => {
+    renderLoading(false, avatarSubmitBtn);
+  });
 }
 
 getUser()
@@ -140,21 +155,22 @@ profileEditBtn.addEventListener('click', function() {
   openPopup(profileEditPopup);
 });
 
-
-popups.forEach((popup) => {
-  popup.addEventListener('click', closePopupByOverlayAndIcon);
-});
-
 placeAddBtn.addEventListener('click', function() {
+  // hideFormErrors(placeAddForm, validationConfig);
   openPopup(placeAddPopup);
 });
 
 avatarEditBtn.addEventListener('click', function () {
+  // hideFormErrors(avatarEditForm, validationConfig);
   openPopup(avatarEditPopup)
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
 avatarEditForm.addEventListener('submit', editAvatar);
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', closePopupByOverlayAndIcon);
+});
 
 enableValidation(validationConfig);
