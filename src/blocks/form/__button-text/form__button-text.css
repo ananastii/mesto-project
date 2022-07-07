@@ -4,7 +4,7 @@
   text-align: center;
 }
 
-@media screen and (max-width: 783px) {
+@media screen and (max-width: 536px) {
   .form__button-text {
     font-size: 14px;
     line-height: 1.21;

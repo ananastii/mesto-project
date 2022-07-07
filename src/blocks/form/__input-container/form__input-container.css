@@ -3,9 +3,10 @@
   padding: 0;
   border: none;
   margin-bottom: 19px;
+  font-size: 0;
 }
 
-@media screen and (max-width: 783px) {
+@media screen and (max-width: 536px) {
   .form__input-container {
     margin-bottom: 12px;
   }
