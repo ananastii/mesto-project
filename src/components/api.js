@@ -1,4 +1,4 @@
-export {onError, getCards, getUser, updateUserInfo, updateUserAvatar ,addCard, deleteCard, editLike}
+export {handleError, getCards, getUser, updateUserInfo, updateUserAvatar, addCard, deleteCard, editLike}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
@@ -8,20 +8,20 @@ const config = {
   }
 }
 
-const onResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
-function onError(err){
+function handleError(err){
   console.log(err)
 };
 
 function getCards() {
   return fetch(`${config.baseUrl}/cards`, {headers: config.headers})
-  .then(onResponse)
+  .then(checkResponse)
 }
 
 function getUser() {
   return fetch(`${config.baseUrl}/users/me`, {headers: config.headers})
-  .then(onResponse)
+  .then(checkResponse)
 }
 
 function updateUserInfo(userName, userDesc) {
@@ -33,7 +33,7 @@ function updateUserInfo(userName, userDesc) {
       about: userDesc
     })
   })
-  .then(onResponse)
+  .then(checkResponse)
 }
 
 function updateUserAvatar(userPic) {
@@ -44,7 +44,7 @@ function updateUserAvatar(userPic) {
       avatar: userPic,
     })
   })
-  .then(onResponse)
+  .then(checkResponse)
 }
 
 function addCard(title, url) {
@@ -56,7 +56,7 @@ function addCard(title, url) {
       link: url
     })
   })
-  .then(onResponse)
+  .then(checkResponse)
 }
 
 function deleteCard(cardId) {
@@ -65,7 +65,7 @@ function deleteCard(cardId) {
     headers: config.headers,
     body: JSON.stringify()
   })
-  .then(onResponse)
+  .then(checkResponse)
 }
 
 function editLike(cardId, isLiked) {
@@ -73,5 +73,5 @@ function editLike(cardId, isLiked) {
     method: isLiked ? 'DELETE' : 'PUT',
     headers: config.headers
   })
-  .then(onResponse)
+  .then(checkResponse)
 }

@@ -2,7 +2,7 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {onError, getCards, getUser, updateUserInfo, addCard, updateUserAvatar} from './api.js';
+import {handleError, getCards, getUser, updateUserInfo, addCard, updateUserAvatar} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -89,7 +89,7 @@ function addCardByForm(evt) {
     .then((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
     })
-    .catch(onError)
+    .catch(handleError)
     .finally(handlePopupAfterEvent(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig));
   evt.target.reset();
 }
@@ -105,7 +105,7 @@ function editProfile(evt) {
     .then((user) => {
       renderUserInfo(user.name, user.about);
     })
-    .catch(onError)
+    .catch(handleError)
     .finally(handlePopupAfterEvent(profileEditPopup, profileEditForm, profileSubmitBtn, validationConfig));
 }
 
@@ -114,7 +114,7 @@ function editAvatar(evt) {
   renderLoading(true, avatarSubmitBtn);
   updateUserAvatar(avatarInputLink.value)
   .then(user => profileImgElement.setAttribute('src', user.avatar))
-  .catch(onError)
+  .catch(handleError)
   .finally(handlePopupAfterEvent(avatarEditPopup, avatarEditForm, avatarSubmitBtn, validationConfig));
 }
 
@@ -123,7 +123,7 @@ getUser()
     renderUser(user.name, user.about, user.avatar);
     myId = user._id;
   })
-  .catch(onError);
+  .catch(handleError);
 
 getCards()
  .then((cards) => {
@@ -131,7 +131,7 @@ getCards()
       addToContainer(placesGrid, card, cardConfig, myId, card.owner._id);
     });
   })
-  .catch(onError);
+  .catch(handleError);
 
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
