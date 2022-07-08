@@ -2,7 +2,7 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {handleError, getCards, getUser, updateUserInfo, addCard, updateUserAvatar} from './api.js';
+import {handleError, getCards, getUserInfo, updateUserInfo, addCard, updateUserAvatar} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -127,15 +127,10 @@ function editAvatar(evt) {
   });
 }
 
-getUser()
-  .then((user) => {
-    renderUser(user.name, user.about, user.avatar);
-    myId = user._id;
-  })
-  .catch(handleError);
-
-getCards()
- .then((cards) => {
+Promise.all([getUserInfo(), getCards()])
+  .then(([userData, cards]) => {
+    myId = userData._id;
+    renderUser(userData.name, userData.about, userData.avatar);
     cards.forEach((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, card.owner._id);
     });

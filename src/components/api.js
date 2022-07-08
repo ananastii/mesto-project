@@ -1,4 +1,4 @@
-export {handleError, getCards, getUser, updateUserInfo, updateUserAvatar, addCard, deleteCard, editLike}
+export {handleError, getCards, getUserInfo, updateUserInfo, updateUserAvatar, addCard, deleteCard, editLike}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
@@ -19,7 +19,7 @@ function getCards() {
   .then(checkResponse)
 }
 
-function getUser() {
+function getUserInfo() {
   return fetch(`${config.baseUrl}/users/me`, {headers: config.headers})
   .then(checkResponse)
 }
