@@ -2,7 +2,7 @@ import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {onError, getCards, getUser, updateUserInfo, addCard, updateUserAvatar} from './api.js';
+import {handleError, getCards, getUserInfo, updateUserInfo, addCard, updateUserAvatar} from './api.js';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -67,20 +67,19 @@ function renderUser(name, desc, avatar) {
   profileImgElement.setAttribute('src', avatar);
 }
 
-function renderLoading(isLoading, submitButton){
-  const defaultBtnText = submitButton.textContent;
+function renderLoading(isLoading, submitButton, defaultBtnText = 'Сохранить'){
   submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
 }
 
-function handlePopupAfterEvent(popup, popupForm, popupFormSubmitBtn, configValidation) {
-  renderLoading(false, popupFormSubmitBtn);
+function handlePopupOnResponce(popup, popupForm, formSubmitBtn, inactiveBtnClass) {
   closePopup(popup);
-  toggleButtonState(popupFormSubmitBtn, configValidation.inactiveButtonClass, popupForm);
+  popupForm.reset();
+  toggleButtonState(formSubmitBtn, inactiveBtnClass, popupForm);
 }
 
 function addCardByForm(evt) {
   evt.preventDefault();
-  renderLoading(true, placeSubmitBtn);
+  renderLoading(true, placeSubmitBtn, 'Создать');
 
   const cardPlaceName = placeInputName.value;
   const cardPlaceLink = placeInputLink.value;
@@ -88,10 +87,12 @@ function addCardByForm(evt) {
   addCard(cardPlaceName, cardPlaceLink)
     .then((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
+      handlePopupOnResponce(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig.inactiveButtonClass)
     })
-    .catch(onError)
-    .finally(handlePopupAfterEvent(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig));
-  evt.target.reset();
+    .catch(handleError)
+    .finally(() => {
+      renderLoading(false, placeSubmitBtn, 'Создать');
+    });
 }
 
 function editProfile(evt) {
@@ -104,34 +105,37 @@ function editProfile(evt) {
   updateUserInfo(inputName, inputDesc)
     .then((user) => {
       renderUserInfo(user.name, user.about);
+      handlePopupOnResponce(profileEditPopup, profileEditForm, profileSubmitBtn, validationConfig.inactiveButtonClass)
     })
-    .catch(onError)
-    .finally(handlePopupAfterEvent(profileEditPopup, profileEditForm, profileSubmitBtn, validationConfig));
+    .catch(handleError)
+    .finally(() => {
+      renderLoading(false, profileSubmitBtn);
+    });
 }
 
 function editAvatar(evt) {
   evt.preventDefault();
   renderLoading(true, avatarSubmitBtn);
   updateUserAvatar(avatarInputLink.value)
-  .then(user => profileImgElement.setAttribute('src', user.avatar))
-  .catch(onError)
-  .finally(handlePopupAfterEvent(avatarEditPopup, avatarEditForm, avatarSubmitBtn, validationConfig));
+  .then(user => {
+    profileImgElement.setAttribute('src', user.avatar);
+    handlePopupOnResponce(avatarEditPopup, avatarEditForm, avatarSubmitBtn, validationConfig.inactiveButtonClass)
+  })
+  .catch(handleError)
+  .finally(() => {
+    renderLoading(false, avatarSubmitBtn);
+  });
 }
 
-getUser()
-  .then((user) => {
-    renderUser(user.name, user.about, user.avatar);
-    myId = user._id;
-  })
-  .catch(onError);
-
-getCards()
- .then((cards) => {
+Promise.all([getUserInfo(), getCards()])
+  .then(([userData, cards]) => {
+    myId = userData._id;
+    renderUser(userData.name, userData.about, userData.avatar);
     cards.forEach((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, card.owner._id);
     });
   })
-  .catch(onError);
+  .catch(handleError);
 
 profileEditBtn.addEventListener('click', function() {
   profileInputName.value = profileNameElement.textContent;
@@ -140,21 +144,22 @@ profileEditBtn.addEventListener('click', function() {
   openPopup(profileEditPopup);
 });
 
-
-popups.forEach((popup) => {
-  popup.addEventListener('click', closePopupByOverlayAndIcon);
-});
-
 placeAddBtn.addEventListener('click', function() {
+  hideFormErrors(placeAddForm, validationConfig);
   openPopup(placeAddPopup);
 });
 
 avatarEditBtn.addEventListener('click', function () {
+  hideFormErrors(avatarEditForm, validationConfig);
   openPopup(avatarEditPopup)
 });
 
 placeAddForm.addEventListener('submit', addCardByForm);
 profileEditForm.addEventListener('submit', editProfile);
 avatarEditForm.addEventListener('submit', editAvatar);
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', closePopupByOverlayAndIcon);
+});
 
 enableValidation(validationConfig);
