@@ -10,8 +10,9 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1;
 }
 
 .place__delete-button:hover {
-  opacity: .6;
+  opacity: .7;
 }
