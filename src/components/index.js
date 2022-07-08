@@ -71,11 +71,11 @@ function renderLoading(isLoading, submitButton, defaultBtnText = 'Сохрани
   submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
 }
 
-// function handlePopupAfterSuccess(popup, popupForm, popupFormSubmitBtn, configValidation, defaultBtnText='Сохранить') {
-//   closePopup(popup);
-
-//   toggleButtonState(popupFormSubmitBtn, configValidation.inactiveButtonClass, popupForm);
-// }
+function handlePopupOnResponce(popup, popupForm, formSubmitBtn, inactiveBtnClass) {
+  closePopup(popup);
+  popupForm.reset();
+  toggleButtonState(formSubmitBtn, inactiveBtnClass, popupForm);
+}
 
 function addCardByForm(evt) {
   evt.preventDefault();
@@ -87,9 +87,7 @@ function addCardByForm(evt) {
   addCard(cardPlaceName, cardPlaceLink)
     .then((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
-      closePopup(placeAddPopup);
-      placeAddForm.reset();
-      toggleButtonState(placeSubmitBtn, validationConfig.inactiveButtonClass, placeAddForm);
+      handlePopupOnResponce(placeAddPopup, placeAddForm, validationConfig.inactiveButtonClass)
     })
     .catch(handleError)
     .finally(() => {
@@ -107,9 +105,7 @@ function editProfile(evt) {
   updateUserInfo(inputName, inputDesc)
     .then((user) => {
       renderUserInfo(user.name, user.about);
-      closePopup(profileEditPopup);
-      profileEditForm.reset();
-      toggleButtonState(profileSubmitBtn, validationConfig.inactiveButtonClass, profileEditForm);
+      handlePopupOnResponce(profileEditPopup, profileEditForm, validationConfig.inactiveButtonClass)
     })
     .catch(handleError)
     .finally(() => {
@@ -123,9 +119,7 @@ function editAvatar(evt) {
   updateUserAvatar(avatarInputLink.value)
   .then(user => {
     profileImgElement.setAttribute('src', user.avatar);
-    closePopup(avatarEditPopup);
-    avatarEditForm.reset();
-    toggleButtonState(avatarSubmitBtn, validationConfig.inactiveButtonClass, avatarEditForm);
+    handlePopupOnResponce(avatarEditPopup,avatarEditForm, validationConfig.inactiveButtonClass)
   })
   .catch(handleError)
   .finally(() => {
