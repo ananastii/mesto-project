@@ -20,7 +20,7 @@
 .places{padding-top:50px}@media screen and (max-width:783px){.places{padding-top:36px}}
 .places__grid{-moz-column-gap:17px;column-gap:17px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));list-style:none;margin:0;padding:0;row-gap:20px}
 .place{display:flex;flex-direction:column;line-height:0;position:relative}
-.place__photo{word-wrap:break-word;border-top-left-radius:10px;border-top-right-radius:10px;cursor:pointer;font-size:18px;height:282px;line-height:1.21;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:100%}
+.place__photo{word-wrap:break-word;border-top-left-radius:10px;border-top-right-radius:10px;cursor:pointer;font-size:18px;height:282px;line-height:1.21;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;transition:opacity .5s;width:100%}.place__photo:hover{opacity:.7}
 .place__desc{align-items:center;background-color:#fff;border-bottom-left-radius:10px;border-bottom-right-radius:10px;display:flex;justify-content:space-between;min-height:79px;padding-left:21px;padding-right:20px}
 .place__name{color:#000;font-size:24px;font-weight:900;line-height:1.2;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .place__like-container{align-items:center;display:flex;flex-direction:column;gap:3px;padding-left:15px}
