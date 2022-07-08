@@ -9,4 +9,9 @@
   line-height: 1.21;
   word-wrap: break-word;
   cursor: pointer;
+  transition: opacity .5s;
+}
+
+.place__photo:hover {
+  opacity: .7;
 }
