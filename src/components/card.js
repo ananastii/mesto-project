@@ -1,10 +1,14 @@
-import {openPopup} from './utils.js';
-import {handleError, deleteCard, editLike} from './api';
-export {addToContainer}
+import { openPopup } from './modal';
+import { popupFullImgConfig } from './constants';
+import {
+  handleError,
+  deleteCard,
+  editLike} from './api';
+export { addToContainer }
 
-const placePopupElement = document.querySelector('#popup_image-open');
-const placePopupImg = placePopupElement.querySelector('.popup__image');
-const placePopupCaption = placePopupElement.querySelector('.popup__caption');
+const placePopupElement = document.querySelector(popupFullImgConfig.popupSelector);
+const placePopupImg = placePopupElement.querySelector(popupFullImgConfig.imageSelector);
+const placePopupCaption = placePopupElement.querySelector(popupFullImgConfig.captionSelector);
 
 function checkLike(likesList, userId) {
   return likesList.some(like => {
@@ -69,3 +73,4 @@ function addToContainer(container, card, config, myId, cardOwnerId) {
   const cardNew = createPlaceCard(card, config, myId, cardOwnerId);
   container.prepend(cardNew);
 }
+

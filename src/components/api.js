@@ -1,4 +1,13 @@
-export {handleError, getCards, getUserInfo, updateUserInfo, updateUserAvatar, addCard, deleteCard, editLike}
+export {
+  handleError,
+  getCards,
+  getUserInfo,
+  updateUserInfo,
+  updateUserAvatar,
+  addCard,
+  deleteCard,
+  editLike
+}
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-13/',
