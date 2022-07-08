@@ -3,6 +3,7 @@ import {addToContainer} from './card.js';
 import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
 import {handleError, getCards, getUserInfo, updateUserInfo, addCard, updateUserAvatar} from './api.js';
+import {validationConfig, cardConfig} from './constants';
 import '../pages/index.css';
 
 const profileElement = document.querySelector('.profile');
@@ -33,27 +34,6 @@ const placeSubmitBtn = placeAddForm.querySelector('.form__button');
 const placesGrid = document.querySelector('.places__grid');
 
 const popups = document.querySelectorAll('.popup');
-
-const validationConfig = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inputErrorMsgSelector: '.form__input-error',
-  inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'form__input_invalid',
-}
-
-const cardConfig = {
-  templateSelector: '#place-template',
-  cardElementSelector: '.place',
-  cardTitleSelector: '.place__name',
-  cardImgSelector: '.place__photo',
-  cardLikeSelector: '.place__like-button',
-  cardDeleteSelector: '.place__delete-button',
-  likeActiveClass: 'place__like-button_active',
-  likeCounterSelector: '.place__like-counter',
-  deleteButtonHiddenClass: 'place__delete-button_hidden',
-}
 
 let myId = '';
 
