@@ -87,7 +87,7 @@ function addCardByForm(evt) {
   addCard(cardPlaceName, cardPlaceLink)
     .then((card) => {
       addToContainer(placesGrid, card, cardConfig, myId, myId);
-      handlePopupOnResponce(placeAddPopup, placeAddForm, validationConfig.inactiveButtonClass)
+      handlePopupOnResponce(placeAddPopup, placeAddForm, placeSubmitBtn, validationConfig.inactiveButtonClass)
     })
     .catch(handleError)
     .finally(() => {
@@ -105,7 +105,7 @@ function editProfile(evt) {
   updateUserInfo(inputName, inputDesc)
     .then((user) => {
       renderUserInfo(user.name, user.about);
-      handlePopupOnResponce(profileEditPopup, profileEditForm, validationConfig.inactiveButtonClass)
+      handlePopupOnResponce(profileEditPopup, profileEditForm, profileSubmitBtn, validationConfig.inactiveButtonClass)
     })
     .catch(handleError)
     .finally(() => {
@@ -119,7 +119,7 @@ function editAvatar(evt) {
   updateUserAvatar(avatarInputLink.value)
   .then(user => {
     profileImgElement.setAttribute('src', user.avatar);
-    handlePopupOnResponce(avatarEditPopup,avatarEditForm, validationConfig.inactiveButtonClass)
+    handlePopupOnResponce(avatarEditPopup, avatarEditForm, avatarSubmitBtn, validationConfig.inactiveButtonClass)
   })
   .catch(handleError)
   .finally(() => {
@@ -150,12 +150,12 @@ profileEditBtn.addEventListener('click', function() {
 });
 
 placeAddBtn.addEventListener('click', function() {
-  // hideFormErrors(placeAddForm, validationConfig);
+  hideFormErrors(placeAddForm, validationConfig);
   openPopup(placeAddPopup);
 });
 
 avatarEditBtn.addEventListener('click', function () {
-  // hideFormErrors(avatarEditForm, validationConfig);
+  hideFormErrors(avatarEditForm, validationConfig);
   openPopup(avatarEditPopup)
 });
 
