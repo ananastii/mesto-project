@@ -1,9 +1,11 @@
-import {closePopup} from './utils.js';
-export {closePopupByOverlayAndIcon};
+import { closePopup } from './utils.js';
+import { modalConfig } from './constants';
+export { closePopupByOverlayAndIcon };
 
 function closePopupByOverlayAndIcon (evt) {
-  if (evt.target.classList.contains('popup__close-button') ||
-    evt.target.classList.contains('popup_opened')) {
-      closePopup(evt.target.closest('.popup'));
+  if (evt.target.classList.contains(modalConfig.closeBtnSelector) ||
+    evt.target.classList.contains(modalConfig.activeModalClass)) {
+      closePopup(evt.target.closest(modalConfig.modalSelector));
   }
 }
+

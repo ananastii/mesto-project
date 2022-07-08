@@ -1,39 +1,60 @@
 import {enableValidation, toggleButtonState} from './validate.js';
 import {addToContainer} from './card.js';
-import {openPopup, closePopup, hideFormErrors} from './utils.js';
 import {closePopupByOverlayAndIcon} from './modal.js';
-import {handleError, getCards, getUserInfo, updateUserInfo, addCard, updateUserAvatar} from './api.js';
-import {validationConfig, cardConfig} from './constants';
+import {openPopup,
+  closePopup,
+  hideFormErrors
+} from './utils.js';
+import {
+  handleError,
+  getCards,
+  getUserInfo,
+  updateUserInfo,
+  addCard,
+  updateUserAvatar
+} from './api.js';
+import {
+  validationConfig,
+  cardConfig,
+  formConfig,
+  profileConfig,
+  popupEditProfileConfig,
+  popupEditAvatarConfig,
+  popupAddPlaceConfig,
+  modalConfig,
+  cardsFeedConfig
+  } from './constants';
 import '../pages/index.css';
 
-const profileElement = document.querySelector('.profile');
-const profileNameElement = profileElement.querySelector('.profile__name');
-const profileDescElement = profileElement.querySelector('.profile__desc');
-const profileImgElement = profileElement.querySelector('.profile__avatar');
-const profileEditBtn = profileElement.querySelector('.profile__edit-button');
+const profileElement = document.querySelector(profileConfig.elemSelector);
+const profileNameElement = profileElement.querySelector(profileConfig.nameSelector);
+const profileDescElement = profileElement.querySelector(profileConfig.descSelector);
+const profileImgElement = profileElement.querySelector(profileConfig.avatarSelector);
+const profileEditBtn = profileElement.querySelector(profileConfig.btnEditInfoSelector);
+const avatarEditBtn = profileElement.querySelector(profileConfig.btnEditImgSelector);
 
-const profileEditPopup = document.querySelector('#popup_profile-edit');
-const profileEditForm = profileEditPopup.querySelector('.form[name=profile-edit]');
-const profileInputName = profileEditForm.querySelector('#profile-name');
-const profileInputDesc = profileEditForm.querySelector('#profile-desc');
-const profileSubmitBtn = profileEditForm.querySelector('.form__button');
+const profileEditPopup = document.querySelector(popupEditProfileConfig.popupSelector);
+const profileEditForm = profileEditPopup.querySelector(popupEditProfileConfig.formSelector);
+const profileInputName = profileEditForm.querySelector(popupEditProfileConfig.inputNameSelector);
+const profileInputDesc = profileEditForm.querySelector(popupEditProfileConfig.inputDescSelector);
+const profileSubmitBtn = profileEditForm.querySelector(formConfig.submitBtnSelector);
 
-const avatarEditBtn = profileElement.querySelector('.profile__avatar-edit-button');
-const avatarEditPopup = document.querySelector('#popup_avatar-edit');
-const avatarEditForm = avatarEditPopup.querySelector('form[name=avatar-edit]');
-const avatarInputLink = avatarEditForm.querySelector('#avatar-link');
-const avatarSubmitBtn = avatarEditForm.querySelector('.form__button');
+const avatarEditPopup = document.querySelector(popupEditAvatarConfig.popupSelector);
+const avatarEditForm = avatarEditPopup.querySelector(popupEditAvatarConfig.formSelector);
+const avatarInputLink = avatarEditForm.querySelector(popupEditAvatarConfig.inputLinkSelector);
+const avatarSubmitBtn = avatarEditForm.querySelector(formConfig.submitBtnSelector);
 
-const placeAddBtn = profileElement.querySelector('.profile__add-button');
-const placeAddPopup = document.querySelector('#popup_place-add');
-const placeAddForm = placeAddPopup.querySelector('.form[name=place-add]');
-const placeInputName = placeAddForm.querySelector('#place-name');
-const placeInputLink = placeAddForm.querySelector('#place-link');
-const placeSubmitBtn = placeAddForm.querySelector('.form__button');
+const placeAddBtn = profileElement.querySelector(cardsFeedConfig.btnAddCardSelector);
 
-const placesGrid = document.querySelector('.places__grid');
+const placeAddPopup = document.querySelector(popupAddPlaceConfig.popupSelector);
+const placeAddForm = placeAddPopup.querySelector(popupAddPlaceConfig.formSelector);
+const placeInputName = placeAddForm.querySelector(popupAddPlaceConfig.inputNameSelector);
+const placeInputLink = placeAddForm.querySelector(popupAddPlaceConfig.inputLinkSelector);
+const placeSubmitBtn = placeAddForm.querySelector(formConfig.submitBtnSelector);
 
-const popups = document.querySelectorAll('.popup');
+const placesGrid = document.querySelector(cardsFeedConfig.containerSelector);
+
+const popups = document.querySelectorAll(modalConfig.modalSelector);
 
 let myId = '';
 

@@ -1,8 +1,15 @@
-export {openPopup, closePopup, hideFormErrors};
+import {
+  modalConfig
+} from './constants';
+export {
+  openPopup,
+  closePopup,
+  hideFormErrors
+};
 
 const closePopupByEsc = (evt) => {
   if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup_opened');
+    const activePopup = document.querySelector(modalConfig.activeModalSelector);
     if (activePopup) {
       closePopup(activePopup);
     }
@@ -10,12 +17,12 @@ const closePopupByEsc = (evt) => {
 }
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add(modalConfig.activeModalClass);
   document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove(modalConfig.activeModalClass);
   document.removeEventListener('keydown', closePopupByEsc);
 }
 
