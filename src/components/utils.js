@@ -1,34 +1,24 @@
-import {
-  modalConfig
-} from './constants';
+import { closePopup } from './modal';
+import { toggleButtonState } from './validate';
 export {
-  openPopup,
-  closePopup,
-  hideFormErrors
+  hideFormErrors,
+  renderLoading,
+  handlePopupOnResponce
 };
-
-const closePopupByEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    const activePopup = document.querySelector(modalConfig.activeModalSelector);
-    if (activePopup) {
-      closePopup(activePopup);
-    }
-  }
-}
-
-function openPopup(popup) {
-  popup.classList.add(modalConfig.activeModalClass);
-  document.addEventListener('keydown', closePopupByEsc);
-}
-
-function closePopup(popup) {
-  popup.classList.remove(modalConfig.activeModalClass);
-  document.removeEventListener('keydown', closePopupByEsc);
-}
 
 const hideFormErrors = (formElement, config) => {
   const formErrors = formElement.querySelectorAll(config.inputErrorMsgSelector);
   const formInputs = formElement.querySelectorAll(config.inputSelector);
   formErrors.forEach(error => error.textContent = '');
   formInputs.forEach(input => input.classList.remove(config.inputErrorClass));
+}
+
+function renderLoading(isLoading, submitButton, defaultBtnText = 'Сохранить'){
+  submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
+}
+
+function handlePopupOnResponce(popup, popupForm, formSubmitBtn, inactiveBtnClass) {
+  closePopup(popup);
+  popupForm.reset();
+  toggleButtonState(formSubmitBtn, inactiveBtnClass, popupForm);
 }

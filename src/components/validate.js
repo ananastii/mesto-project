@@ -1,4 +1,4 @@
-export {enableValidation, toggleButtonState};
+export { enableValidation, toggleButtonState };
 
 const toggleButtonState = (buttonElement, inactiveButtonClass, formElement) => {
   const isFormValid = formElement.checkValidity();

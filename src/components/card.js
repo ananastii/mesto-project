@@ -1,10 +1,10 @@
-import { openPopup } from './utils.js';
+import { openPopup } from './modal';
 import { popupFullImgConfig } from './constants';
 import {
   handleError,
   deleteCard,
   editLike} from './api';
-export {addToContainer}
+export { addToContainer }
 
 const placePopupElement = document.querySelector(popupFullImgConfig.popupSelector);
 const placePopupImg = placePopupElement.querySelector(popupFullImgConfig.imageSelector);

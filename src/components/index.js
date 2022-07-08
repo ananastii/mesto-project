@@ -1,9 +1,11 @@
-import {enableValidation, toggleButtonState} from './validate.js';
-import {addToContainer} from './card.js';
-import {closePopupByOverlayAndIcon} from './modal.js';
-import {openPopup,
-  closePopup,
-  hideFormErrors
+import '../pages/index.css';
+import { enableValidation } from './validate';
+import { addToContainer } from './card';
+import { openPopup, closePopupByOverlayAndIcon } from './modal';
+import {
+  hideFormErrors,
+  renderLoading,
+  handlePopupOnResponce
 } from './utils.js';
 import {
   handleError,
@@ -24,7 +26,6 @@ import {
   modalConfig,
   cardsFeedConfig
   } from './constants';
-import '../pages/index.css';
 
 const profileElement = document.querySelector(profileConfig.elemSelector);
 const profileNameElement = profileElement.querySelector(profileConfig.nameSelector);
@@ -66,16 +67,6 @@ function renderUserInfo(name, desc) {
 function renderUser(name, desc, avatar) {
   renderUserInfo(name, desc);
   profileImgElement.setAttribute('src', avatar);
-}
-
-function renderLoading(isLoading, submitButton, defaultBtnText = 'Сохранить'){
-  submitButton.textContent = isLoading ? 'Сохранение...' : defaultBtnText;
-}
-
-function handlePopupOnResponce(popup, popupForm, formSubmitBtn, inactiveBtnClass) {
-  closePopup(popup);
-  popupForm.reset();
-  toggleButtonState(formSubmitBtn, inactiveBtnClass, popupForm);
 }
 
 function addCardByForm(evt) {
