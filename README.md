@@ -22,7 +22,12 @@ User can:
 ## Technologies
 - CSS with BEM methodology (Nested)
 - Responsive design
+  - Grid Layout
+  - Flex
+  - media queries
 - JavaScript
+  - Fetch API
+  - form validation
 - Webpack
 
 # Место
